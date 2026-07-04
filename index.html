@@ -4,7 +4,17 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Schematic — Visualization of Maladaptive Schema</title>
-<meta name="description" content="Schematic: a design-research project visualizing maladaptive schemas and their role in childhood and adolescent development. By Allen Sung Kang, YSDN 4004 Design Workshop.">
+<meta name="description" content="Schematic: a 2016 design-research project visualizing the eighteen early maladaptive schemas (Young's schema model), with curated resources for understanding them. By Allen Sung Kang, YSDN 4004.">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Schematic — Visualization of Maladaptive Schema">
+<meta property="og:description" content="The eighteen early maladaptive schemas, each given a generative form — plus curated resources for understanding them.">
+<meta property="og:image" content="assets/img/og.png">
+<meta property="og:url" content="https://mooque-dev.github.io/schematic/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Schematic — Visualization of Maladaptive Schema">
+<meta name="twitter:description" content="The eighteen early maladaptive schemas, each given a generative form.">
+<meta name="twitter:image" content="assets/img/og.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -12,16 +22,18 @@
 </head>
 <body>
 
+<a class="skip-link" href="#about">Skip to content</a>
+
 <!-- ===== NAV ===== -->
 <header class="nav" id="nav">
-  <a href="#top" class="brand">Schematic<span>.</span></a>
-  <nav class="nav-links">
+  <a href="#top" class="brand"><img class="brand-mark" src="assets/img/mark.svg" alt="" aria-hidden="true"><span class="wm">Schematic<span class="dot">.</span></span></a>
+  <nav class="nav-links" aria-label="Primary">
     <a href="#about">About</a>
     <a href="#concept">Concept</a>
     <a href="#schemas">Schemas</a>
     <a href="#studies">Studies</a>
-    <a href="#documents">Documents</a>
-    <a href="#sources">Sources</a>
+    <a href="#resources">Resources</a>
+    <a href="#archive">Archive</a>
   </nav>
 </header>
 
@@ -30,11 +42,17 @@
   <div class="hero-glow"></div>
   <img class="hero-mark" src="assets/img/logo.png" alt="Schematic generative line-mesh mark">
   <h1 class="hero-title">Schematic</h1>
-  <p class="hero-sub">Visualization of <span class="term" data-tip="Broad, pervasive, self-defeating patterns regarding oneself and one's relationships, developed in childhood and dysfunctional to a significant degree.">Maladaptive</span>
-  <span class="term" data-tip="A pattern of thought or behavior that organizes categories of information and the relationships among them — a mental framework for making sense of the world.">Schema</span></p>
-  <p class="hero-meta">A design-research project by <strong>Allen&nbsp;Sung&nbsp;Kang</strong> · YSDN&nbsp;4004 Design Workshop · 2016–2017</p>
+  <p class="hero-sub">Visualization of
+    <button class="term" type="button" aria-expanded="false" aria-describedby="tip-mal">Maladaptive</button>
+    <span class="tip" id="tip-mal" role="tooltip">Broad, pervasive, self-defeating patterns regarding oneself and one's relationships, developed in childhood and dysfunctional to a significant degree.</span>
+    <button class="term" type="button" aria-expanded="false" aria-describedby="tip-sch">Schema</button>
+    <span class="tip" id="tip-sch" role="tooltip">A pattern of thought or behavior that organizes categories of information and the relationships among them — a mental framework for making sense of the world.</span>
+  </p>
+  <p class="hero-meta">A 2016 design-research project by <strong>Allen&nbsp;Sung&nbsp;Kang</strong> · YSDN&nbsp;4004 Design Workshop</p>
   <a class="scroll-cue" href="#about" aria-label="Scroll to content">↓</a>
 </section>
+
+<main>
 
 <!-- ===== ABOUT ===== -->
 <section class="section" id="about">
@@ -47,6 +65,7 @@
     <p>The necessity of the work lies in a simple fact: countless people are clueless and confused about the "self." As <em>Psychology Today</em> notes, "self-knowledge is practically impossible to attain… but you can achieve greater objectivity and insight by tuning into a few tested principles." The purpose is to make that architecture visible — and, in doing so, contribute both to the discipline and to anyone exposed to it.</p>
     <p>Broadly, this research touches all human beings, but within the span of a workshop it is narrowed to <strong>children and millennials</strong>. The impact it may bring is abstract rather than tangible — yet it can lead to concrete outcomes depending on one's willingness to reflect and to accept.</p>
   </div>
+  <p class="about-note">This site presents that original 2016 project as an <a href="#archive">archive</a>, with added structure and <a href="#resources">curated resources</a> for anyone who wants to understand the model further. It is educational — not medical advice or a diagnostic tool.</p>
 </section>
 
 <!-- ===== CONCEPT ===== -->
@@ -93,84 +112,167 @@
 <section class="section" id="schemas">
   <div class="section-head">
     <span class="kicker">03 — The Schemas</span>
-    <h2>Eighteen maladaptive schemas, each given a form.</h2>
-    <p class="section-note">Following Young's schema model, the project visualizes all eighteen early maladaptive schemas — each rendered as its own generative line-mesh. Tap any poster to read the full description.</p>
+    <h2>Eighteen schemas, five domains.</h2>
+    <p class="section-note">Young's schema model groups eighteen early maladaptive schemas into five domains, each tracing back to a core childhood need that went unmet. Every schema is rendered here as its own generative form. Tap any poster to read the full description.</p>
   </div>
 
-  <div class="schema-grid">
-    <figure class="schema" data-full="assets/schemas/01.png" data-cap="01 · Abandonment / Instability">
-      <div class="schema-img"><img src="assets/schemas/01.png" alt="Schema 01 — Abandonment / Instability" loading="lazy"></div>
-      <figcaption><span class="schema-no">01</span><h4>Abandonment / Instability <span class="code">AB</span></h4><p>The perceived instability or unreliability of those available for support and connection.</p></figcaption>
-    </figure>
-    <figure class="schema" data-full="assets/schemas/02.png" data-cap="02 · Mistrust / Abuse">
-      <div class="schema-img"><img src="assets/schemas/02.png" alt="Schema 02 — Mistrust / Abuse" loading="lazy"></div>
-      <figcaption><span class="schema-no">02</span><h4>Mistrust / Abuse <span class="code">MA</span></h4><p>The expectation that others will hurt, abuse, humiliate, cheat, lie, or take advantage.</p></figcaption>
-    </figure>
-    <figure class="schema" data-full="assets/schemas/03.png" data-cap="03 · Emotional Deprivation">
-      <div class="schema-img"><img src="assets/schemas/03.png" alt="Schema 03 — Emotional Deprivation" loading="lazy"></div>
-      <figcaption><span class="schema-no">03</span><h4>Emotional Deprivation <span class="code">ED</span></h4><p>The expectation that one's need for a normal degree of emotional support won't be met.</p></figcaption>
-    </figure>
-    <figure class="schema" data-full="assets/schemas/04.png" data-cap="04 · Defectiveness / Shame">
-      <div class="schema-img"><img src="assets/schemas/04.png" alt="Schema 04 — Defectiveness / Shame" loading="lazy"></div>
-      <figcaption><span class="schema-no">04</span><h4>Defectiveness / Shame <span class="code">DS</span></h4><p>The feeling that one is defective, unwanted, or inferior — and unlovable if truly seen.</p></figcaption>
-    </figure>
-    <figure class="schema" data-full="assets/schemas/05.png" data-cap="05 · Social Isolation / Alienation">
-      <div class="schema-img"><img src="assets/schemas/05.png" alt="Schema 05 — Social Isolation / Alienation" loading="lazy"></div>
-      <figcaption><span class="schema-no">05</span><h4>Social Isolation / Alienation <span class="code">SI</span></h4><p>The feeling of being isolated from the world and part of no group or community.</p></figcaption>
-    </figure>
-    <figure class="schema" data-full="assets/schemas/06.png" data-cap="06 · Dependence / Incompetence">
-      <div class="schema-img"><img src="assets/schemas/06.png" alt="Schema 06 — Dependence / Incompetence" loading="lazy"></div>
-      <figcaption><span class="schema-no">06</span><h4>Dependence / Incompetence <span class="code">DI</span></h4><p>The belief that one cannot handle everyday responsibilities competently without help.</p></figcaption>
-    </figure>
-    <figure class="schema" data-full="assets/schemas/07.png" data-cap="07 · Vulnerability to Harm / Illness">
-      <div class="schema-img"><img src="assets/schemas/07.png" alt="Schema 07 — Vulnerability to Harm or Illness" loading="lazy"></div>
-      <figcaption><span class="schema-no">07</span><h4>Vulnerability to Harm / Illness <span class="code">VH</span></h4><p>An exaggerated fear that catastrophe will strike at any moment and can't be prevented.</p></figcaption>
-    </figure>
-    <figure class="schema" data-full="assets/schemas/08.png" data-cap="08 · Enmeshment / Undeveloped Self">
-      <div class="schema-img"><img src="assets/schemas/08.png" alt="Schema 08 — Enmeshment / Undeveloped Self" loading="lazy"></div>
-      <figcaption><span class="schema-no">08</span><h4>Enmeshment / Undeveloped Self <span class="code">EM</span></h4><p>Excessive closeness with others at the expense of individuation and a normal identity.</p></figcaption>
-    </figure>
-    <figure class="schema" data-full="assets/schemas/09.png" data-cap="09 · Failure to Achieve">
-      <div class="schema-img"><img src="assets/schemas/09.png" alt="Schema 09 — Failure to Achieve" loading="lazy"></div>
-      <figcaption><span class="schema-no">09</span><h4>Failure to Achieve <span class="code">FA</span></h4><p>The belief that one has failed, or will inevitably fail, relative to one's peers.</p></figcaption>
-    </figure>
-    <figure class="schema" data-full="assets/schemas/10.png" data-cap="10 · Entitlement / Grandiosity">
-      <div class="schema-img"><img src="assets/schemas/10.png" alt="Schema 10 — Entitlement / Grandiosity" loading="lazy"></div>
-      <figcaption><span class="schema-no">10</span><h4>Entitlement / Grandiosity <span class="code">ETI</span></h4><p>The belief that one is superior and entitled to special rights, free of normal limits.<a class="fn" href="#schema-note">*</a></p></figcaption>
-    </figure>
-    <figure class="schema" data-full="assets/schemas/11.png" data-cap="11 · Insufficient Self-Control / Self-Discipline">
-      <div class="schema-img"><img src="assets/schemas/11.png" alt="Schema 11 — Insufficient Self-Control / Self-Discipline" loading="lazy"></div>
-      <figcaption><span class="schema-no">11</span><h4>Insufficient Self-Control <span class="code">ISI</span></h4><p>Difficulty exercising the self-control and frustration tolerance to reach one's goals.</p></figcaption>
-    </figure>
-    <figure class="schema" data-full="assets/schemas/12.png" data-cap="12 · Subjugation">
-      <div class="schema-img"><img src="assets/schemas/12.png" alt="Schema 12 — Subjugation" loading="lazy"></div>
-      <figcaption><span class="schema-no">12</span><h4>Subjugation <span class="code">SB</span></h4><p>Excessively surrendering control to others to avoid anger, retaliation, or abandonment.</p></figcaption>
-    </figure>
-    <figure class="schema" data-full="assets/schemas/13.png" data-cap="13 · Self-Sacrifice">
-      <div class="schema-img"><img src="assets/schemas/13.png" alt="Schema 13 — Self-Sacrifice" loading="lazy"></div>
-      <figcaption><span class="schema-no">13</span><h4>Self-Sacrifice <span class="code">SS</span></h4><p>Excessive focus on meeting others' needs at the expense of one's own gratification.</p></figcaption>
-    </figure>
-    <figure class="schema" data-full="assets/schemas/14.png" data-cap="14 · Approval-Seeking / Recognition">
-      <div class="schema-img"><img src="assets/schemas/14.png" alt="Schema 14 — Approval-Seeking / Recognition" loading="lazy"></div>
-      <figcaption><span class="schema-no">14</span><h4>Approval-Seeking / Recognition <span class="code">AS</span></h4><p>Excessive emphasis on approval and recognition at the expense of a secure, true self.</p></figcaption>
-    </figure>
-    <figure class="schema" data-full="assets/schemas/15.png" data-cap="15 · Negativity / Pessimism">
-      <div class="schema-img"><img src="assets/schemas/15.png" alt="Schema 15 — Negativity / Pessimism" loading="lazy"></div>
-      <figcaption><span class="schema-no">15</span><h4>Negativity / Pessimism <span class="code">NP</span></h4><p>A pervasive, lifelong focus on the negative while minimizing the positive.</p></figcaption>
-    </figure>
-    <figure class="schema" data-full="assets/schemas/16.png" data-cap="16 · Emotional Inhibition">
-      <div class="schema-img"><img src="assets/schemas/16.png" alt="Schema 16 — Emotional Inhibition" loading="lazy"></div>
-      <figcaption><span class="schema-no">16</span><h4>Emotional Inhibition <span class="code">EI</span></h4><p>The excessive inhibition of spontaneous action, feeling, or communication.</p></figcaption>
-    </figure>
-    <figure class="schema" data-full="assets/schemas/17.png" data-cap="17 · Unrelenting Standards / Hypercriticalness">
-      <div class="schema-img"><img src="assets/schemas/17.png" alt="Schema 17 — Unrelenting Standards / Hypercriticalness" loading="lazy"></div>
-      <figcaption><span class="schema-no">17</span><h4>Unrelenting Standards <span class="code">US</span></h4><p>Striving to meet very high standards of behavior and performance to avoid criticism.</p></figcaption>
-    </figure>
-    <figure class="schema" data-full="assets/schemas/18.png" data-cap="18 · Punitiveness">
-      <div class="schema-img"><img src="assets/schemas/18.png" alt="Schema 18 — Punitiveness" loading="lazy"></div>
-      <figcaption><span class="schema-no">18</span><h4>Punitiveness <span class="code">PU</span></h4><p>The belief that people should be harshly punished for making mistakes.</p></figcaption>
-    </figure>
+  <!-- Guided finder -->
+  <div class="finder" id="finder">
+    <div class="finder-head">
+      <h3>Not sure where to start?</h3>
+      <p>Describe something you've been feeling or noticing. This will point you to the schemas that tend to fit — a reflective starting point, <strong>not a diagnosis</strong>.</p>
+    </div>
+    <form class="finder-form" id="finder-form" role="search">
+      <label class="sr-only" for="finder-input">Describe how you've been feeling</label>
+      <input id="finder-input" type="text" autocomplete="off" placeholder="e.g. I always feel like people will eventually leave me">
+      <button type="submit">Find schemas</button>
+    </form>
+    <div class="finder-chips" id="finder-examples">
+      <button type="button" data-q="I feel like people will leave me or let me down">“people will leave me”</button>
+      <button type="button" data-q="I feel like I have to be perfect or I'll be criticized">“I have to be perfect”</button>
+      <button type="button" data-q="I put everyone else's needs before my own">“I put others first”</button>
+      <button type="button" data-q="I feel different, like I don't belong anywhere">“I don't belong”</button>
+    </div>
+    <div class="finder-results" id="finder-results" aria-live="polite"></div>
+    <p class="finder-foot">A conversational AI guide is planned for a later phase. For now, this matches your words to the model on your device — nothing you type is sent anywhere.</p>
   </div>
+
+  <!-- Domain nav chips -->
+  <nav class="domain-nav" aria-label="Schema domains">
+    <a href="#domain-1"><span>I</span> Disconnection &amp; Rejection</a>
+    <a href="#domain-2"><span>II</span> Impaired Autonomy</a>
+    <a href="#domain-3"><span>III</span> Impaired Limits</a>
+    <a href="#domain-4"><span>IV</span> Other-Directedness</a>
+    <a href="#domain-5"><span>V</span> Overvigilance &amp; Inhibition</a>
+  </nav>
+
+  <!-- DOMAIN I -->
+  <div class="domain" id="domain-1">
+    <header class="domain-head">
+      <span class="domain-no">Domain I</span>
+      <h3>Disconnection &amp; Rejection</h3>
+      <p>Needs for safety, stability, nurturance, empathy, and belonging were not reliably met. Secure bonds feel unsafe or out of reach.</p>
+    </header>
+    <div class="schema-grid">
+      <figure class="schema" data-full="assets/schemas/01.png" data-cap="01 · Abandonment / Instability">
+        <div class="schema-img"><img src="assets/schemas/th/01.jpg" alt="Schema 01 — Abandonment / Instability" loading="lazy"></div>
+        <figcaption><span class="schema-no">01</span><h4>Abandonment / Instability <span class="code">AB</span></h4><p>The perceived instability or unreliability of those available for support and connection.</p></figcaption>
+      </figure>
+      <figure class="schema" data-full="assets/schemas/02.png" data-cap="02 · Mistrust / Abuse">
+        <div class="schema-img"><img src="assets/schemas/th/02.jpg" alt="Schema 02 — Mistrust / Abuse" loading="lazy"></div>
+        <figcaption><span class="schema-no">02</span><h4>Mistrust / Abuse <span class="code">MA</span></h4><p>The expectation that others will hurt, abuse, humiliate, cheat, lie, or take advantage.</p></figcaption>
+      </figure>
+      <figure class="schema" data-full="assets/schemas/03.png" data-cap="03 · Emotional Deprivation">
+        <div class="schema-img"><img src="assets/schemas/th/03.jpg" alt="Schema 03 — Emotional Deprivation" loading="lazy"></div>
+        <figcaption><span class="schema-no">03</span><h4>Emotional Deprivation <span class="code">ED</span></h4><p>The expectation that one's need for a normal degree of emotional support won't be met.</p></figcaption>
+      </figure>
+      <figure class="schema" data-full="assets/schemas/04.png" data-cap="04 · Defectiveness / Shame">
+        <div class="schema-img"><img src="assets/schemas/th/04.jpg" alt="Schema 04 — Defectiveness / Shame" loading="lazy"></div>
+        <figcaption><span class="schema-no">04</span><h4>Defectiveness / Shame <span class="code">DS</span></h4><p>The feeling that one is defective, unwanted, or inferior — and unlovable if truly seen.</p></figcaption>
+      </figure>
+      <figure class="schema" data-full="assets/schemas/05.png" data-cap="05 · Social Isolation / Alienation">
+        <div class="schema-img"><img src="assets/schemas/th/05.jpg" alt="Schema 05 — Social Isolation / Alienation" loading="lazy"></div>
+        <figcaption><span class="schema-no">05</span><h4>Social Isolation / Alienation <span class="code">SI</span></h4><p>The feeling of being isolated from the world and part of no group or community.</p></figcaption>
+      </figure>
+    </div>
+  </div>
+
+  <!-- DOMAIN II -->
+  <div class="domain" id="domain-2">
+    <header class="domain-head">
+      <span class="domain-no">Domain II</span>
+      <h3>Impaired Autonomy &amp; Performance</h3>
+      <p>Expectations about oneself and the world that undermine the ability to separate, function, and succeed independently.</p>
+    </header>
+    <div class="schema-grid">
+      <figure class="schema" data-full="assets/schemas/06.png" data-cap="06 · Dependence / Incompetence">
+        <div class="schema-img"><img src="assets/schemas/th/06.jpg" alt="Schema 06 — Dependence / Incompetence" loading="lazy"></div>
+        <figcaption><span class="schema-no">06</span><h4>Dependence / Incompetence <span class="code">DI</span></h4><p>The belief that one cannot handle everyday responsibilities competently without help.</p></figcaption>
+      </figure>
+      <figure class="schema" data-full="assets/schemas/07.png" data-cap="07 · Vulnerability to Harm / Illness">
+        <div class="schema-img"><img src="assets/schemas/th/07.jpg" alt="Schema 07 — Vulnerability to Harm or Illness" loading="lazy"></div>
+        <figcaption><span class="schema-no">07</span><h4>Vulnerability to Harm / Illness <span class="code">VH</span></h4><p>An exaggerated fear that catastrophe will strike at any moment and can't be prevented.</p></figcaption>
+      </figure>
+      <figure class="schema" data-full="assets/schemas/08.png" data-cap="08 · Enmeshment / Undeveloped Self">
+        <div class="schema-img"><img src="assets/schemas/th/08.jpg" alt="Schema 08 — Enmeshment / Undeveloped Self" loading="lazy"></div>
+        <figcaption><span class="schema-no">08</span><h4>Enmeshment / Undeveloped Self <span class="code">EM</span></h4><p>Excessive closeness with others at the expense of individuation and a normal identity.</p></figcaption>
+      </figure>
+      <figure class="schema" data-full="assets/schemas/09.png" data-cap="09 · Failure to Achieve">
+        <div class="schema-img"><img src="assets/schemas/th/09.jpg" alt="Schema 09 — Failure to Achieve" loading="lazy"></div>
+        <figcaption><span class="schema-no">09</span><h4>Failure to Achieve <span class="code">FA</span></h4><p>The belief that one has failed, or will inevitably fail, relative to one's peers.</p></figcaption>
+      </figure>
+    </div>
+  </div>
+
+  <!-- DOMAIN III -->
+  <div class="domain" id="domain-3">
+    <header class="domain-head">
+      <span class="domain-no">Domain III</span>
+      <h3>Impaired Limits</h3>
+      <p>Difficulty with internal limits, responsibility to others, and orientation toward long-term goals.</p>
+    </header>
+    <div class="schema-grid">
+      <figure class="schema" data-full="assets/schemas/10.png" data-cap="10 · Entitlement / Grandiosity">
+        <div class="schema-img"><img src="assets/schemas/th/10.jpg" alt="Schema 10 — Entitlement / Grandiosity" loading="lazy"></div>
+        <figcaption><span class="schema-no">10</span><h4>Entitlement / Grandiosity <span class="code">ETI</span></h4><p>The belief that one is superior and entitled to special rights, free of normal limits.<a class="fn" href="#schema-note">*</a></p></figcaption>
+      </figure>
+      <figure class="schema" data-full="assets/schemas/11.png" data-cap="11 · Insufficient Self-Control / Self-Discipline">
+        <div class="schema-img"><img src="assets/schemas/th/11.jpg" alt="Schema 11 — Insufficient Self-Control / Self-Discipline" loading="lazy"></div>
+        <figcaption><span class="schema-no">11</span><h4>Insufficient Self-Control <span class="code">ISI</span></h4><p>Difficulty exercising the self-control and frustration tolerance to reach one's goals.</p></figcaption>
+      </figure>
+    </div>
+  </div>
+
+  <!-- DOMAIN IV -->
+  <div class="domain" id="domain-4">
+    <header class="domain-head">
+      <span class="domain-no">Domain IV</span>
+      <h3>Other-Directedness</h3>
+      <p>An excessive focus on the desires, feelings, and approval of others — at the expense of one's own needs.</p>
+    </header>
+    <div class="schema-grid">
+      <figure class="schema" data-full="assets/schemas/12.png" data-cap="12 · Subjugation">
+        <div class="schema-img"><img src="assets/schemas/th/12.jpg" alt="Schema 12 — Subjugation" loading="lazy"></div>
+        <figcaption><span class="schema-no">12</span><h4>Subjugation <span class="code">SB</span></h4><p>Excessively surrendering control to others to avoid anger, retaliation, or abandonment.</p></figcaption>
+      </figure>
+      <figure class="schema" data-full="assets/schemas/13.png" data-cap="13 · Self-Sacrifice">
+        <div class="schema-img"><img src="assets/schemas/th/13.jpg" alt="Schema 13 — Self-Sacrifice" loading="lazy"></div>
+        <figcaption><span class="schema-no">13</span><h4>Self-Sacrifice <span class="code">SS</span></h4><p>Excessive focus on meeting others' needs at the expense of one's own gratification.</p></figcaption>
+      </figure>
+      <figure class="schema" data-full="assets/schemas/14.png" data-cap="14 · Approval-Seeking / Recognition">
+        <div class="schema-img"><img src="assets/schemas/th/14.jpg" alt="Schema 14 — Approval-Seeking / Recognition" loading="lazy"></div>
+        <figcaption><span class="schema-no">14</span><h4>Approval-Seeking / Recognition <span class="code">AS</span></h4><p>Excessive emphasis on approval and recognition at the expense of a secure, true self.</p></figcaption>
+      </figure>
+    </div>
+  </div>
+
+  <!-- DOMAIN V -->
+  <div class="domain" id="domain-5">
+    <header class="domain-head">
+      <span class="domain-no">Domain V</span>
+      <h3>Overvigilance &amp; Inhibition</h3>
+      <p>Suppressing spontaneous feelings and impulses, or meeting rigid internal rules — at the cost of ease, health, and happiness.</p>
+    </header>
+    <div class="schema-grid">
+      <figure class="schema" data-full="assets/schemas/15.png" data-cap="15 · Negativity / Pessimism">
+        <div class="schema-img"><img src="assets/schemas/th/15.jpg" alt="Schema 15 — Negativity / Pessimism" loading="lazy"></div>
+        <figcaption><span class="schema-no">15</span><h4>Negativity / Pessimism <span class="code">NP</span></h4><p>A pervasive, lifelong focus on the negative while minimizing the positive.</p></figcaption>
+      </figure>
+      <figure class="schema" data-full="assets/schemas/16.png" data-cap="16 · Emotional Inhibition">
+        <div class="schema-img"><img src="assets/schemas/th/16.jpg" alt="Schema 16 — Emotional Inhibition" loading="lazy"></div>
+        <figcaption><span class="schema-no">16</span><h4>Emotional Inhibition <span class="code">EI</span></h4><p>The excessive inhibition of spontaneous action, feeling, or communication.</p></figcaption>
+      </figure>
+      <figure class="schema" data-full="assets/schemas/17.png" data-cap="17 · Unrelenting Standards / Hypercriticalness">
+        <div class="schema-img"><img src="assets/schemas/th/17.jpg" alt="Schema 17 — Unrelenting Standards / Hypercriticalness" loading="lazy"></div>
+        <figcaption><span class="schema-no">17</span><h4>Unrelenting Standards <span class="code">US</span></h4><p>Striving to meet very high standards of behavior and performance to avoid criticism.</p></figcaption>
+      </figure>
+      <figure class="schema" data-full="assets/schemas/18.png" data-cap="18 · Punitiveness">
+        <div class="schema-img"><img src="assets/schemas/th/18.jpg" alt="Schema 18 — Punitiveness" loading="lazy"></div>
+        <figcaption><span class="schema-no">18</span><h4>Punitiveness <span class="code">PU</span></h4><p>The belief that people should be harshly punished for making mistakes.</p></figcaption>
+      </figure>
+    </div>
+  </div>
+
   <p class="grid-note" id="schema-note">* Poster 10 reproduces the Enmeshment / Undeveloped Self text in the original 2017 artwork; the summary shown here uses the standard definition of Entitlement / Grandiosity.</p>
 </section>
 
@@ -210,12 +312,51 @@
   </div>
 </section>
 
-<!-- ===== DOCUMENTS ===== -->
-<section class="section dark" id="documents">
+<!-- ===== RESOURCES ===== -->
+<section class="section" id="resources">
   <div class="section-head">
-    <span class="kicker">05 — Documents</span>
-    <h2>The paper trail.</h2>
-    <p class="section-note">The research proposal, monograph, timeline, and poster set — as originally submitted. Click to open the PDF.</p>
+    <span class="kicker">05 — Resources</span>
+    <h2>Learn more, and find help.</h2>
+    <p class="section-note">Schematic is a design project, not a clinical source. These are authoritative places to understand the model properly — and to reach real support.</p>
+  </div>
+
+  <div class="res-groups">
+    <div class="res-group">
+      <h3><i class="res-ic">◔</i> Understand the model</h3>
+      <ul>
+        <li><a href="https://en.wikipedia.org/wiki/Schema_therapy" target="_blank" rel="noopener">Schema therapy — overview <span class="ext">↗</span></a><span class="res-note">A grounded introduction to schemas, modes, and coping styles.</span></li>
+        <li><span class="res-title">Reinventing Your Life</span> — Jeffrey E. Young &amp; Janet S. Klosko<span class="res-note">The accessible, self-help companion to the clinical model.</span></li>
+      </ul>
+    </div>
+    <div class="res-group">
+      <h3><i class="res-ic">◑</i> Go deeper</h3>
+      <ul>
+        <li><a href="https://www.attachmentproject.com/blog/early-maladaptive-schemas/" target="_blank" rel="noopener">The 18 schemas — plain-language guide <span class="ext">↗</span></a><span class="res-note">Each schema and domain, explained with everyday examples.</span></li>
+        <li><a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9753131/" target="_blank" rel="noopener">Higher-order structure of schemas — meta-analysis <span class="ext">↗</span></a><span class="res-note">Peer-reviewed evidence on how the domains hold together.</span></li>
+        <li><span class="res-title">Schema Therapy: A Practitioner's Guide</span> — Young, Klosko &amp; Weishaar<span class="res-note">The foundational clinical text behind the model.</span></li>
+      </ul>
+    </div>
+    <div class="res-group">
+      <h3><i class="res-ic">●</i> Find help</h3>
+      <ul>
+        <li><a href="https://www.schematherapysociety.org/Find-a-Therapist" target="_blank" rel="noopener">ISST — find a schema therapist <span class="ext">↗</span></a><span class="res-note">The International Society of Schema Therapy's accredited directory.</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <aside class="care" aria-label="A note on care">
+    <h3>A note on care</h3>
+    <p>Recognizing a pattern in yourself can be unsettling. Schemas are about understanding, not labelling — and nothing here is a diagnosis. If any of this resonates in a way that's hard to sit with, it's worth talking to a qualified professional.</p>
+    <p class="care-crisis">If you're in crisis, you don't have to wait. In the US or Canada, call or text <strong>988</strong> (Suicide &amp; Crisis Lifeline). If you're in immediate danger, contact your local emergency services.</p>
+  </aside>
+</section>
+
+<!-- ===== ARCHIVE (documents + sources) ===== -->
+<section class="section dark" id="archive">
+  <div class="section-head">
+    <span class="kicker">06 — The 2016 Archive</span>
+    <h2>The original project.</h2>
+    <p class="section-note">The research proposal, monograph, timeline, and poster set — as originally submitted for YSDN 4004 in 2016–2017. Click to open the PDF.</p>
   </div>
 
   <div class="docs">
@@ -233,35 +374,34 @@
     </a>
     <a class="doc" href="assets/docs/Posters.pdf" target="_blank" rel="noopener">
       <div class="doc-thumb"><img src="assets/thumbs/doc-posters.png" alt="" loading="lazy"></div>
-      <div class="doc-meta"><h4>Poster Set</h4><p>Schema visualization plates · PDF</p></div>
+      <div class="doc-meta"><h4>Poster Set</h4><p>All 18 schema visualization plates · PDF</p></div>
     </a>
   </div>
+
+  <div class="biblio">
+    <h3>Sources cited in the 2016 project</h3>
+    <ol class="refs">
+      <li>Bartlett, Frederic C., and Walter Kintsch. "A Theory of Remembering." <em>Remembering: A Study in Experimental and Social Psychology.</em> Cambridge University Press, 1932.</li>
+      <li>Blakeslee, Thomas R. <em>Beyond the Conscious Mind: Unlocking the Secrets of the Self.</em> New York: Plenum, 1996.</li>
+      <li>Bobrow, Daniel G., and Allan Collins. <em>Representation and Understanding: Studies in Cognitive Science.</em> New York: Academic, 1975.</li>
+      <li>Dobson, Keith S. <em>Handbook of Cognitive-Behavioral Therapies.</em> New York: Guilford, 2001.</li>
+      <li>Stein, Karen Farchaus. "Schema Model of the Self-Concept." University of Michigan School of Nursing, 1995.</li>
+      <li>Young, Jeffrey E., Marjorie E. Weishaar, and Janet S. Klosko. <em>Schema Therapy: A Practitioner's Guide.</em> Guilford Press, 2006.</li>
+      <li>"They Learn Fast! Understand Your Kid's Intellectual Development." Child Development Institute, 2011.</li>
+    </ol>
+  </div>
 </section>
 
-<!-- ===== SOURCES ===== -->
-<section class="section" id="sources">
-  <div class="section-head">
-    <span class="kicker">06 — Sources</span>
-    <h2>Works cited.</h2>
-  </div>
-  <ol class="refs">
-    <li>Bartlett, Frederic C., and Walter Kintsch. <em>Remembering: A Study in Experimental and Social Psychology.</em> Cambridge University Press, 1932.</li>
-    <li>Blakeslee, Thomas R. <em>Beyond the Conscious Mind: Unlocking the Secrets of the Self.</em> New York: Plenum, 1996.</li>
-    <li>Bobrow, Daniel G., and Allan Collins. <em>Representation and Understanding: Studies in Cognitive Science.</em> New York: Academic, 1975.</li>
-    <li>Dobson, Keith S. <em>Handbook of Cognitive-Behavioral Therapies.</em> New York: Guilford, 2001.</li>
-    <li>Stein, Karen Farchaus. "Schema Model of the Self-Concept." University of Michigan School of Nursing, 1995.</li>
-    <li>Young, Jeffrey E., Janet S. Klosko, and Marjorie E. Weishaar. <em>Schema Therapy: A Practitioner's Guide.</em> Guilford Press, 2006.</li>
-    <li>Child Development Institute. "They Learn Fast! Understand Your Kid's Intellectual Development." 2011.</li>
-  </ol>
-</section>
+</main>
 
 <footer class="footer">
-  <span class="brand">Schematic<span>.</span></span>
-  <p>Visualization of Maladaptive Schema — Allen Sung Kang · YSDN 4004 Design Workshop, 2016–2017.</p>
+  <span class="brand"><img class="brand-mark" src="assets/img/mark.svg" alt="" aria-hidden="true"><span class="wm">Schematic<span class="dot">.</span></span></span>
+  <p>Visualization of Maladaptive Schema — a 2016 design-research project by Allen Sung Kang · YSDN 4004 Design Workshop.</p>
+  <p class="footer-note">Educational project. Not medical advice or a diagnostic tool.</p>
 </footer>
 
 <!-- ===== LIGHTBOX ===== -->
-<div class="lightbox" id="lightbox" aria-hidden="true">
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Enlarged image" aria-hidden="true">
   <button class="lb-close" aria-label="Close">×</button>
   <button class="lb-prev" aria-label="Previous">‹</button>
   <img class="lb-img" src="" alt="">

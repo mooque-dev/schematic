@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Schematic mark">
+  <g fill="none" stroke="#e23a6d" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M32 8C22.6 8 17 13 17 19.2c0 2.4.9 4.4 2.3 6-2.6 1.8-4.1 4.5-4.1 7.6 0 3.2 1.6 5.9 4.1 7.6C21 49 25.9 52 32 52"/>
+    <path d="M32 8c9.4 0 15 5 15 11.2 0 2.4-.9 4.4-2.3 6 2.6 1.8 4.1 4.5 4.1 7.6 0 3.2-1.6 5.9-4.1 7.6C43 49 38.1 52 32 52"/>
+    <path d="M32 13.5v33" stroke-opacity=".45"/>
+    <path d="M32 23l-7 4.4M32 23l7 4.4M32 37l-7-4.4M32 37l7-4.4" stroke-opacity=".7"/>
+  </g>
+  <g fill="#e23a6d">
+    <circle cx="32" cy="13.5" r="2.5"/>
+    <circle cx="32" cy="30" r="2.4"/>
+    <circle cx="32" cy="46.5" r="2.5"/>
+    <circle cx="25" cy="27.4" r="2"/>
+    <circle cx="39" cy="27.4" r="2"/>
+    <circle cx="25" cy="32.6" r="2"/>
+    <circle cx="39" cy="32.6" r="2"/>
+  </g>
+</svg>
