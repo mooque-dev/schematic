@@ -5,7 +5,7 @@ onScroll();
 window.addEventListener('scroll', onScroll, { passive: true });
 
 // Reveal on scroll
-const revealEls = document.querySelectorAll('.section-head, .prose, .def, .card, .tile, .doc, .refs, .constructs-title');
+const revealEls = document.querySelectorAll('.section-head, .prose, .def, .card, .tile, .schema, .doc, .refs, .constructs-title');
 revealEls.forEach(el => el.classList.add('reveal'));
 const io = new IntersectionObserver((entries) => {
   entries.forEach(e => {
@@ -15,7 +15,7 @@ const io = new IntersectionObserver((entries) => {
 revealEls.forEach(el => io.observe(el));
 
 // Lightbox
-const tiles = Array.from(document.querySelectorAll('.tile'));
+const tiles = Array.from(document.querySelectorAll('.tile, .schema'));
 const lb = document.getElementById('lightbox');
 const lbImg = lb.querySelector('.lb-img');
 const lbCap = lb.querySelector('.lb-cap');

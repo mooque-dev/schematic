@@ -13,21 +13,29 @@ python3 -m http.server 4599
 
 ## Structure
 ```
-index.html        Single-page site (Hero · About · Concept · Gallery · Documents · Sources)
+index.html        Single-page site
+                  (Hero · About · Concept · Schemas · Studies · Documents · Sources)
 styles.css        Dark editorial theme
 app.js            Sticky nav, scroll reveals, gallery lightbox
 assets/
-  img/            Brand mark + hero art
-  gallery/        Poster plates, generative mesh art, visual essays
-  thumbs/         PNG previews auto-generated from the poster/document PDFs
-  docs/           Viewable PDFs (Proposal, Monograph, Timeline, Poster set, plates)
+  img/            Brand mark
+  schemas/        01–18.png — the eighteen schema posters (from SC_1.0.pdf)
+  gallery/        Generative mesh art, visual essays, colour-treatment study
+  thumbs/         Document cover previews + early layout study
+  docs/           Viewable PDFs (Proposal, Monograph, Timeline, Poster set)
 ```
 
-## Content sources
-- Text (About / Concept / Sources) is drawn from the original **Research Proposal**
+## Content
+- **Schemas** — all 18 early maladaptive schemas (Young's model), each shown as its own
+  poster with a name, two-letter code, and a one-line summary transcribed from the artwork.
+  Note: the original poster #10 (Entitlement / Grandiosity) reproduces the Enmeshment text;
+  the site flags this and shows the standard definition.
+- **Text** (About / Concept / Sources) is drawn from the original **Research Proposal**
   (`Kang_Proposal_DWS.pdf`) and **Report** (`DWSReport.odt`) — no placeholder Lorem Ipsum.
-- Gallery images are the schema posters (`td/*.pdf`), mesh studies (`ti1/ti2.png`),
-  and visual essays, previewed via `qlmanage`-generated PNGs.
+- Poster images are `qlmanage`-rendered from the source PDFs.
 
-To refresh a PDF preview:
-`qlmanage -t -s 1400 -o assets/thumbs assets/docs/<file>.pdf`
+To re-render the 18 schema posters from source:
+```bash
+# split SC_1.0.pdf into pages, then thumbnail each:
+qlmanage -t -s 1300 -o assets/schemas <single-page>.pdf
+```

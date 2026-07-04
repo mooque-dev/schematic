@@ -205,6 +205,41 @@ img{display:block;max-width:100%}
 .tile:hover img{transform:scale(1.05)}
 .tile:hover figcaption{opacity:1;transform:translateY(0)}
 
+/* ===== SCHEMA GRID ===== */
+.schema-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:1.4rem;
+}
+.schema{
+  margin:0;border:1px solid var(--line);border-radius:16px;overflow:hidden;
+  background:var(--panel);cursor:pointer;
+  display:flex;flex-direction:column;
+  transition:transform .3s ease,border-color .3s ease;
+}
+.schema:hover{transform:translateY(-5px);border-color:rgba(226,58,109,.45)}
+.schema-img{background:#000;overflow:hidden;line-height:0}
+.schema-img img{width:100%;height:auto;display:block;transition:transform .6s ease}
+.schema:hover .schema-img img{transform:scale(1.04)}
+.schema figcaption{padding:1.2rem 1.3rem 1.4rem;position:relative}
+.schema-no{
+  font-family:var(--serif);font-size:1.1rem;font-weight:300;
+  color:var(--crimson-soft);letter-spacing:.05em;
+}
+.schema figcaption h4{
+  margin:.15rem 0 .5rem;font-size:1.05rem;font-weight:600;color:var(--ink);
+  line-height:1.25;display:flex;align-items:baseline;gap:.5rem;flex-wrap:wrap;
+}
+.schema .code{
+  font-family:var(--sans);font-size:.62rem;font-weight:600;letter-spacing:.12em;
+  color:var(--crimson-soft);border:1px solid rgba(226,58,109,.4);
+  border-radius:4px;padding:.12rem .4rem;
+}
+.schema figcaption p{margin:0;font-size:.9rem;color:var(--ink-dim);line-height:1.5}
+.schema .fn{color:var(--crimson-soft);text-decoration:none;font-weight:600;padding-left:2px}
+.grid-note{
+  max-width:70ch;margin:2.4rem auto 0;text-align:center;
+  font-size:.82rem;color:var(--ink-faint);line-height:1.6;
+}
+
 /* ===== DOCUMENTS ===== */
 .docs{display:grid;grid-template-columns:repeat(2,1fr);gap:1.2rem}
 .doc{
@@ -271,12 +306,14 @@ img{display:block;max-width:100%}
   .def-grid{grid-template-columns:1fr}
   .docs{grid-template-columns:1fr}
   .two-col{columns:1}
+  .schema-grid{grid-template-columns:repeat(2,1fr)}
 }
 @media(max-width:620px){
   .nav-links{display:none}
   .masonry{columns:1}
   .def blockquote{font-size:1.12rem}
   .doc-thumb{flex-basis:74px;height:98px}
+  .schema-grid{grid-template-columns:1fr}
 }
 @media(prefers-reduced-motion:reduce){
   *{animation:none!important}
