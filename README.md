@@ -33,9 +33,12 @@ assets/
 - **Schemas** — the 18 early maladaptive schemas grouped into Young's **5 domains**
   (the posters are already numbered in domain order). Poster #10 reproduces the Enmeshment
   text in the original artwork; the site flags this and shows the standard definition.
-- **Guided finder** — a client-side keyword matcher (`SCHEMAS` map in `app.js`) that points
-  a described feeling to likely schemas. Nothing is sent anywhere. A conversational AI phase
-  is planned but not built (would need a serverless proxy + guardrails).
+- **Reflect** — a 2-minute, fully client-side self-check (overlay): 18 first-person statements
+  on a 1–4 scale → a domain profile (five animated bars) + the schemas that stood out, each
+  linking back to its poster. Nothing is stored or sent. Statements/scoring live in `app.js`.
+- **Guided finder** — a lighter, free-text alternative: a keyword matcher (`SCHEMAS` map in
+  `app.js`) that points a described feeling to likely schemas. A conversational AI phase is
+  planned but not built (would need a serverless proxy + guardrails).
 - **Resources** — curated authoritative links (ISST directory, overviews, meta-analysis) plus
   a care note and crisis line (988), kept distinct from the 2016 bibliography.
 - **Text** (About / Concept) is drawn from the original Research Proposal and Report — no

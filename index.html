@@ -120,12 +120,23 @@
   <div class="finder" id="finder">
     <div class="finder-head">
       <h3>Not sure where to start?</h3>
-      <p>Describe something you've been feeling or noticing. This will point you to the schemas that tend to fit — a reflective starting point, <strong>not a diagnosis</strong>.</p>
+      <p>Take a short, private reflection — or describe what you've been feeling. Either way you'll land on the schemas that tend to fit. A mirror, <strong>not a diagnosis</strong>.</p>
     </div>
+    <button type="button" class="reflect-cta" id="reflect-open">
+      <span class="rc-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a4 4 0 0 1 4 4c0 1.3-.6 2.2-1.3 3M12 3a4 4 0 0 0-4 4c0 1.3.6 2.2 1.3 3M9 21h6M10 17.5c0-1.5-.8-2.3-1.7-3.2A5 5 0 0 1 12 5a5 5 0 0 1 3.7 8.3c-.9.9-1.7 1.7-1.7 3.2"/></svg>
+      </span>
+      <span class="rc-text">
+        <span class="rc-main">Take the 2-minute reflection</span>
+        <span class="rc-sub">18 gentle statements · fully private · nothing is saved</span>
+      </span>
+      <span class="rc-arrow" aria-hidden="true">→</span>
+    </button>
+    <div class="finder-or"><span>or describe it in your own words</span></div>
     <form class="finder-form" id="finder-form" role="search">
       <label class="sr-only" for="finder-input">Describe how you've been feeling</label>
       <input id="finder-input" type="text" autocomplete="off" placeholder="e.g. I always feel like people will eventually leave me">
-      <button type="submit">Find schemas</button>
+      <button type="submit">Find</button>
     </form>
     <div class="finder-chips" id="finder-examples">
       <button type="button" data-q="I feel like people will leave me or let me down">“people will leave me”</button>
@@ -134,7 +145,7 @@
       <button type="button" data-q="I feel different, like I don't belong anywhere">“I don't belong”</button>
     </div>
     <div class="finder-results" id="finder-results" aria-live="polite"></div>
-    <p class="finder-foot">A conversational AI guide is planned for a later phase. For now, this matches your words to the model on your device — nothing you type is sent anywhere.</p>
+    <p class="finder-foot">Everything runs on your device — nothing you type or tap is sent anywhere. A conversational AI guide is planned for a later phase.</p>
   </div>
 
   <!-- Domain nav chips -->
@@ -399,6 +410,72 @@
   <p>Visualization of Maladaptive Schema — a 2016 design-research project by Allen Sung Kang · YSDN 4004 Design Workshop.</p>
   <p class="footer-note">Educational project. Not medical advice or a diagnostic tool.</p>
 </footer>
+
+<!-- ===== REFLECT (self-check tool) ===== -->
+<div class="reflect" id="reflect" role="dialog" aria-modal="true" aria-labelledby="reflect-title" aria-hidden="true">
+  <div class="reflect-panel">
+    <button class="reflect-close" id="reflect-close" aria-label="Close reflection">×</button>
+
+    <!-- progress -->
+    <div class="reflect-progress" id="reflect-progress" hidden>
+      <div class="rp-bar"><span id="rp-fill"></span></div>
+      <span class="rp-count" id="rp-count"></span>
+    </div>
+
+    <!-- STEP: intro -->
+    <div class="reflect-step" id="step-intro">
+      <p class="reflect-kicker">A private reflection</p>
+      <h2 id="reflect-title">A short mirror, not a diagnosis.</h2>
+      <p class="reflect-lead">Eighteen simple statements about how you tend to feel. Answer honestly and quickly — first instinct is fine. It takes about two minutes, and you can stop anytime.</p>
+      <ul class="reflect-points">
+        <li>Everything stays on your device. Nothing is saved or sent.</li>
+        <li>You'll see which schemas and domains resonate most — as a starting point for reflection.</li>
+        <li>This is educational, not clinical. If anything feels heavy, the <a href="#resources" id="reflect-care-link">care &amp; resources</a> are there.</li>
+      </ul>
+      <div class="reflect-actions">
+        <button class="btn-primary" id="reflect-begin">Begin</button>
+      </div>
+    </div>
+
+    <!-- STEP: question -->
+    <div class="reflect-step" id="step-q" hidden>
+      <p class="reflect-qhint">How true does this feel for you?</p>
+      <h3 class="reflect-statement" id="reflect-statement"></h3>
+      <div class="reflect-scale" id="reflect-scale">
+        <button type="button" data-v="1"><b>Rarely</b><span>not really me</span></button>
+        <button type="button" data-v="2"><b>Sometimes</b><span>now and then</span></button>
+        <button type="button" data-v="3"><b>Often</b><span>fairly true</span></button>
+        <button type="button" data-v="4"><b>Very often</b><span>strongly me</span></button>
+      </div>
+      <div class="reflect-nav">
+        <button type="button" class="btn-ghost" id="reflect-back">‹ Back</button>
+        <button type="button" class="btn-ghost" id="reflect-skip">Skip</button>
+      </div>
+    </div>
+
+    <!-- STEP: results -->
+    <div class="reflect-step" id="step-results" hidden>
+      <p class="reflect-kicker">Your reflection</p>
+      <h2>Where things seem to sit.</h2>
+      <p class="reflect-lead" id="results-summary"></p>
+
+      <h4 class="results-h">By domain</h4>
+      <div class="domain-bars" id="domain-bars"></div>
+
+      <h4 class="results-h">Schemas that stood out</h4>
+      <div class="results-schemas" id="results-schemas"></div>
+
+      <div class="reflect-carebox">
+        <p>This is a mirror for reflection, not a diagnosis. Patterns can shift, and one quiet afternoon isn't a verdict. If any of it feels hard to hold, talking to a qualified professional helps — see <a href="#resources" class="reflect-jump">resources &amp; care</a>.</p>
+      </div>
+
+      <div class="reflect-actions">
+        <button class="btn-primary" id="reflect-retake">Take it again</button>
+        <button class="btn-ghost" id="reflect-done">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 <!-- ===== LIGHTBOX ===== -->
 <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Enlarged image" aria-hidden="true">
