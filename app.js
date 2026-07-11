@@ -1,8 +1,75 @@
-// ===== Nav background on scroll =====
+const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const smooth = reduceMotion ? 'auto' : 'smooth';
+
+// ===== Nav background on scroll + back-to-top =====
 const nav = document.getElementById('nav');
-const onScroll = () => nav.classList.toggle('scrolled', window.scrollY > 40);
+const toTop = document.getElementById('to-top');
+const onScroll = () => {
+  nav.classList.toggle('scrolled', window.scrollY > 40);
+  if (toTop) toTop.classList.toggle('show', window.scrollY > 700);
+};
 onScroll();
 window.addEventListener('scroll', onScroll, { passive: true });
+if (toTop) toTop.addEventListener('click', () => {
+  window.scrollTo({ top: 0, behavior: smooth });
+  document.querySelector('.brand').focus?.();
+});
+
+// ===== Mobile nav toggle =====
+const navToggle = document.getElementById('nav-toggle');
+const navLinks = document.getElementById('nav-links');
+if (navToggle && navLinks) {
+  const setMenu = (open) => {
+    navLinks.classList.toggle('open', open);
+    navToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    navToggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+  };
+  navToggle.addEventListener('click', () => setMenu(navToggle.getAttribute('aria-expanded') !== 'true'));
+  navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => setMenu(false)));
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') setMenu(false); });
+  document.addEventListener('click', (e) => {
+    if (navToggle.getAttribute('aria-expanded') === 'true'
+      && !navLinks.contains(e.target) && !navToggle.contains(e.target)) setMenu(false);
+  });
+}
+
+// ===== Scroll-spy active nav (aria-current) =====
+const spyPairs = [];
+document.querySelectorAll('.nav-links a[href^="#"]').forEach(a => {
+  const sec = document.getElementById(a.getAttribute('href').slice(1));
+  if (sec) spyPairs.push({ a, sec });
+});
+let activeLink = null;
+function updateActiveNav() {
+  if (!spyPairs.length) return;
+  const line = window.scrollY + window.innerHeight * 0.4;
+  let current = null;
+  for (const { a, sec } of spyPairs) {
+    if (sec.offsetTop <= line) current = a;
+  }
+  // near the very bottom, force the last section active
+  if (window.innerHeight + window.scrollY >= document.body.scrollHeight - 4) {
+    current = spyPairs[spyPairs.length - 1].a;
+  }
+  if (current !== activeLink) {
+    if (activeLink) activeLink.removeAttribute('aria-current');
+    if (current) current.setAttribute('aria-current', 'true');
+    activeLink = current;
+  }
+}
+window.addEventListener('scroll', updateActiveNav, { passive: true });
+updateActiveNav();
+
+// ===== External links: announce new tab, ensure noopener =====
+document.querySelectorAll('a[target="_blank"]').forEach(a => {
+  a.rel = 'noopener noreferrer';
+  if (!a.querySelector('.sr-only')) {
+    const s = document.createElement('span');
+    s.className = 'sr-only';
+    s.textContent = ' (opens in a new tab)';
+    a.appendChild(s);
+  }
+});
 
 // ===== Reveal on scroll =====
 const revealEls = document.querySelectorAll(
@@ -73,7 +140,7 @@ function scoreSchemas(text) {
 function jumpToSchema(n) {
   const card = cards[n - 1];
   if (!card) return;
-  card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  card.scrollIntoView({ behavior: smooth, block: 'center' });
   card.classList.remove('flash');
   void card.offsetWidth;
   card.classList.add('flash');
@@ -211,6 +278,8 @@ if (rf) {
   const prog = document.getElementById('reflect-progress');
   const rpFill = document.getElementById('rp-fill');
   const rpCount = document.getElementById('rp-count');
+  const rpBar = document.getElementById('rp-bar');
+  const live = document.getElementById('reflect-live');
   const stmtEl = document.getElementById('reflect-statement');
   const scale = document.getElementById('reflect-scale');
   const nameOf = n => (SCHEMAS.find(s => s.n === n) || {}).name || '';
@@ -243,10 +312,12 @@ if (rf) {
     const n = ORDER[qi];
     stmtEl.textContent = STATEMENTS[n];
     prog.hidden = false;
-    rpFill.style.width = ((qi) / ORDER.length * 100) + '%';
+    rpFill.style.width = (qi / ORDER.length * 100) + '%';
     rpCount.textContent = (qi + 1) + ' / ' + ORDER.length;
+    if (rpBar) { rpBar.setAttribute('aria-valuenow', qi + 1); rpBar.setAttribute('aria-valuetext', `Question ${qi + 1} of ${ORDER.length}`); }
     document.getElementById('reflect-back').disabled = qi === 0;
     scale.querySelectorAll('button').forEach(b => b.setAttribute('aria-pressed', answers[n] == b.dataset.v ? 'true' : 'false'));
+    if (live) live.textContent = `Question ${qi + 1} of ${ORDER.length}. ${STATEMENTS[n]}`;
   }
   function startQuiz() { qi = 0; only(stepQ); renderQ(); scale.querySelector('button').focus(); }
   function advance() {
@@ -309,6 +380,7 @@ if (rf) {
         wrap.appendChild(b);
       });
     }
+    if (live) live.textContent = 'Reflection complete. ' + summary.textContent;
     document.getElementById('reflect-retake').focus();
   }
 
@@ -328,9 +400,16 @@ if (rf) {
   });
   document.addEventListener('keydown', (e) => {
     if (!rf.classList.contains('open')) return;
-    if (e.key === 'Escape') closeReflect();
-    else if (!stepQ.hidden && ['1', '2', '3', '4'].includes(e.key)) {
+    if (e.key === 'Escape') { closeReflect(); return; }
+    if (!stepQ.hidden && ['1', '2', '3', '4'].includes(e.key)) {
       const btn = scale.querySelector(`button[data-v="${e.key}"]`); if (btn) btn.click();
+    } else if (e.key === 'Tab') {
+      const f = [...rf.querySelectorAll('button, a[href], input')]
+        .filter(el => el.offsetParent !== null && !el.disabled);
+      if (!f.length) return;
+      const first = f[0], last = f[f.length - 1];
+      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
     }
   });
 }

@@ -27,7 +27,11 @@
 <!-- ===== NAV ===== -->
 <header class="nav" id="nav">
   <a href="#top" class="brand"><img class="brand-mark" src="assets/img/mark.svg" alt="" aria-hidden="true"><span class="wm">Schematic<span class="dot">.</span></span></a>
-  <nav class="nav-links" aria-label="Primary">
+  <button class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="nav-links" aria-label="Open menu">
+    <svg class="ic-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    <svg class="ic-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+  </button>
+  <nav class="nav-links" id="nav-links" aria-label="Primary">
     <a href="#about">About</a>
     <a href="#concept">Concept</a>
     <a href="#schemas">Schemas</a>
@@ -342,15 +346,16 @@
     <div class="res-group">
       <h3><i class="res-ic">◑</i> Go deeper</h3>
       <ul>
-        <li><a href="https://www.attachmentproject.com/blog/early-maladaptive-schemas/" target="_blank" rel="noopener">The 18 schemas — plain-language guide <span class="ext">↗</span></a><span class="res-note">Each schema and domain, explained with everyday examples.</span></li>
-        <li><a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9753131/" target="_blank" rel="noopener">Higher-order structure of schemas — meta-analysis <span class="ext">↗</span></a><span class="res-note">Peer-reviewed evidence on how the domains hold together.</span></li>
+        <li><a href="https://www.attachmentproject.com/blog/early-maladaptive-schemas/" target="_blank" rel="noopener">The 18 schemas — plain-language guide <span class="ext" aria-hidden="true">↗</span></a><span class="res-note">Each schema and domain, explained with everyday examples.</span></li>
+        <li><a href="https://scholar.google.com/scholar?q=early+maladaptive+schemas+higher-order+structure" target="_blank" rel="noopener">Peer-reviewed research on the schema domains <span class="ext" aria-hidden="true">↗</span></a><span class="res-note">Scholarly work on how the five domains hold together empirically.</span></li>
         <li><span class="res-title">Schema Therapy: A Practitioner's Guide</span> — Young, Klosko &amp; Weishaar<span class="res-note">The foundational clinical text behind the model.</span></li>
       </ul>
     </div>
     <div class="res-group">
       <h3><i class="res-ic">●</i> Find help</h3>
       <ul>
-        <li><a href="https://www.schematherapysociety.org/Find-a-Therapist" target="_blank" rel="noopener">ISST — find a schema therapist <span class="ext">↗</span></a><span class="res-note">The International Society of Schema Therapy's accredited directory.</span></li>
+        <li><a href="https://schematherapysociety.org/find-a-therapist/" target="_blank" rel="noopener">ISST — find a schema therapist <span class="ext" aria-hidden="true">↗</span></a><span class="res-note">The International Society of Schema Therapy's accredited directory.</span></li>
+        <li><a href="https://findahelpline.com/" target="_blank" rel="noopener">Find a helpline — worldwide <span class="ext" aria-hidden="true">↗</span></a><span class="res-note">Free, confidential support lines in your country.</span></li>
       </ul>
     </div>
   </div>
@@ -358,7 +363,7 @@
   <aside class="care" aria-label="A note on care">
     <h3>A note on care</h3>
     <p>Recognizing a pattern in yourself can be unsettling. Schemas are about understanding, not labelling — and nothing here is a diagnosis. If any of this resonates in a way that's hard to sit with, it's worth talking to a qualified professional.</p>
-    <p class="care-crisis">If you're in crisis, you don't have to wait. In the US or Canada, call or text <strong>988</strong> (Suicide &amp; Crisis Lifeline). If you're in immediate danger, contact your local emergency services.</p>
+    <p class="care-crisis">If you're in crisis, you don't have to wait. In the US or Canada, call or text <strong>988</strong> (Suicide &amp; Crisis Lifeline). Elsewhere, <a href="https://findahelpline.com/" target="_blank" rel="noopener">find a helpline in your country</a>. If you're in immediate danger, contact your local emergency services.</p>
   </aside>
 </section>
 
@@ -405,6 +410,10 @@
 
 </main>
 
+<button class="to-top" id="to-top" aria-label="Back to top">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+</button>
+
 <footer class="footer">
   <span class="brand"><img class="brand-mark" src="assets/img/mark.svg" alt="" aria-hidden="true"><span class="wm">Schematic<span class="dot">.</span></span></span>
   <p>Visualization of Maladaptive Schema — a 2016 design-research project by Allen Sung Kang · YSDN 4004 Design Workshop.</p>
@@ -412,13 +421,13 @@
 </footer>
 
 <!-- ===== REFLECT (self-check tool) ===== -->
-<div class="reflect" id="reflect" role="dialog" aria-modal="true" aria-labelledby="reflect-title" aria-hidden="true">
+<div class="reflect" id="reflect" role="dialog" aria-modal="true" aria-label="Reflection — a private self-check" aria-hidden="true">
   <div class="reflect-panel">
     <button class="reflect-close" id="reflect-close" aria-label="Close reflection">×</button>
 
     <!-- progress -->
     <div class="reflect-progress" id="reflect-progress" hidden>
-      <div class="rp-bar"><span id="rp-fill"></span></div>
+      <div class="rp-bar" role="progressbar" aria-label="Reflection progress" aria-valuemin="0" aria-valuemax="18" aria-valuenow="0" id="rp-bar"><span id="rp-fill"></span></div>
       <span class="rp-count" id="rp-count"></span>
     </div>
 
@@ -430,7 +439,7 @@
       <ul class="reflect-points">
         <li>Everything stays on your device. Nothing is saved or sent.</li>
         <li>You'll see which schemas and domains resonate most — as a starting point for reflection.</li>
-        <li>This is educational, not clinical. If anything feels heavy, the <a href="#resources" id="reflect-care-link">care &amp; resources</a> are there.</li>
+        <li>An informal reflection, not the validated Young Schema Questionnaire. Educational, not clinical — if anything feels heavy, the <a href="#resources" id="reflect-care-link">care &amp; resources</a> are there.</li>
       </ul>
       <div class="reflect-actions">
         <button class="btn-primary" id="reflect-begin">Begin</button>
@@ -439,9 +448,9 @@
 
     <!-- STEP: question -->
     <div class="reflect-step" id="step-q" hidden>
-      <p class="reflect-qhint">How true does this feel for you?</p>
+      <p class="reflect-qhint" id="reflect-qhint">How true does this feel for you?</p>
       <h3 class="reflect-statement" id="reflect-statement"></h3>
-      <div class="reflect-scale" id="reflect-scale">
+      <div class="reflect-scale" id="reflect-scale" role="group" aria-labelledby="reflect-statement reflect-qhint">
         <button type="button" data-v="1"><b>Rarely</b><span>not really me</span></button>
         <button type="button" data-v="2"><b>Sometimes</b><span>now and then</span></button>
         <button type="button" data-v="3"><b>Often</b><span>fairly true</span></button>
@@ -452,6 +461,7 @@
         <button type="button" class="btn-ghost" id="reflect-skip">Skip</button>
       </div>
     </div>
+    <div class="sr-only" id="reflect-live" aria-live="polite"></div>
 
     <!-- STEP: results -->
     <div class="reflect-step" id="step-results" hidden>
