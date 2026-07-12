@@ -32,10 +32,11 @@ sips -s format jpeg -s formatOptions 82 --resampleWidth 820 \
 
 ```
 index.html   One page: Hero · About · Concept · Schemas · Studies · Resources · Archive
+404.html     Branded, self-contained not-found page (links to /schematic/).
 styles.css   Dark editorial theme. Design tokens in :root (--ink*, --crimson*, --line*).
 app.js       Six concerns in one IIFE-less file (see below).
-assets/      img/ (mark, favicon, og, hero) · schemas/ (01–18.png full + th/ jpg thumbs)
-             gallery/ · docs/ (PDFs) · thumbs/ (doc covers)
+assets/      img/ (mark, favicon, og, hero) · fonts/ (self-hosted Inter + Fraunces woff2)
+             schemas/ (01–18.png full + th/ jpg thumbs) · gallery/ · docs/ (PDFs) · thumbs/
 ```
 
 `app.js` sections, in order: (1) nav scroll state + back-to-top,
@@ -57,8 +58,9 @@ hardening, (5) reveal-on-scroll, (6) accessible term tooltips,
 - **Full schema PNGs (`assets/schemas/NN.png`, ~1 MB) load only in the
   lightbox** (`data-full`); the grid uses `th/NN.jpg` thumbnails. Keep it that way.
 - **Privacy is a product promise** ("nothing you type or tap is sent anywhere").
-  Keep the finder/Reflect fully client-side. See the fonts finding below — the
-  page itself is not yet 100% request-free.
+  Keep the finder/Reflect fully client-side. As of the P0 pass the page makes
+  **zero external requests** (fonts are self-hosted in `assets/fonts/`, enforced
+  by a CSP with `connect-src 'none'`). Don't reintroduce a CDN/Google-Fonts link.
 - Poster #10 (Entitlement) reproduces the Enmeshment text in the source art;
   it's flagged in a footnote — intentional, don't "fix" the image.
 
@@ -85,26 +87,24 @@ hardening, (5) reveal-on-scroll, (6) accessible term tooltips,
 
 - 🟢 No backend, no secrets committed, no `eval`/`document.write`, all links
   `https`, every `target="_blank"` has `rel="noopener"` (JS also adds `noreferrer`).
-- 🟡 **`innerHTML` in 6 spots (app.js: finder + Reflect results).** Currently
-  fed **only constant data** (`SCHEMAS`/`DOMAINS`), so **not exploitable today** —
-  but it's a latent XSS pattern. If any user/URL text ever flows into those
-  templates, it becomes an injection. Prefer `textContent` / DOM building, or
-  keep a strict "static-data-only" rule on these builders.
-- 🟡 **Google Fonts is the only third-party dependency** (`fonts.googleapis.com`
-  + `fonts.gstatic.com`). It leaks the visitor's IP/UA to Google on every load
-  and is a supply-chain + privacy surface. It slightly undercuts the "nothing
-  leaves your device" framing (true for *user data*, not for page load).
-- 🟡 **No Content-Security-Policy.** A `<meta http-equiv="CSP">` would enforce
-  the privacy promise (e.g. `connect-src 'none'`) and neutralize the innerHTML risk.
+- 🟢 **CSP added** (`<meta http-equiv>`, P0): `default-src 'self'; connect-src
+  'none'; script-src 'self'; font-src 'self'; base-uri 'none'; form-action
+  'none'`. Enforces the privacy promise and neutralizes the innerHTML risk.
+- 🟢 **Google Fonts removed** — Inter + Fraunces self-hosted as local woff2 in
+  `assets/fonts/` (both are variable → one file each). Page now makes **zero
+  external requests** (verified).
+- 🟡 **`innerHTML` in 6 spots (app.js: finder + Reflect results).** Still fed
+  **only constant data** (`SCHEMAS`/`DOMAINS`) → not exploitable, and now also
+  boxed in by the CSP. Keep the "static-data-only" rule on these builders.
 
 ## Loading performance
 
-- 🔴 **32 `<img>` with no `width`/`height` (0 of 32).** Causes layout shift (CLS)
-  as images load. Add intrinsic dimensions or `aspect-ratio`.
-- 🟡 **Render-blocking Google Fonts CSS**, 2 families × 4 weights (8 files).
-  Has `display=swap` (good) but blocks first paint on a third party.
+- 🟢 **CLS fixed (P0):** all 31 content `<img>` now carry intrinsic
+  `width`/`height` + `decoding="async"`; global `img{height:auto}` keeps them fluid.
+- 🟢 **Fonts self-hosted + preloaded (P0):** no render-blocking third-party CSS;
+  `font-display:swap`; ~120 KB for both families.
 - 🟢 Grid images are compressed thumbnails; full posters and Studies art are
-  `loading="lazy"`. No `decoding="async"` yet (minor).
+  `loading="lazy"`.
 - 🟢 CSS/JS unminified but tiny (~35 KB) — minification is marginal here.
 
 ---
@@ -113,18 +113,16 @@ hardening, (5) reveal-on-scroll, (6) accessible term tooltips,
 
 Ordered by impact ÷ effort. P0 = do first.
 
-## P0 — correctness & cheap wins (hours)
+## P0 — correctness & cheap wins — ✅ DONE (2026-07-12)
 
-1. **Fix CLS**: add `width`/`height` (or `aspect-ratio`) + `decoding="async"` to
-   the 32 images. *(perf)*
-2. **Self-host fonts**: subset Inter + Fraunces to `woff2`, drop the Google
-   `<link>`s. Removes the third party → airtight privacy + faster first paint. *(security/perf)*
-3. **Add a CSP meta** once fonts are local: `default-src 'self'; img-src 'self'
-   data:; style-src 'self'; font-src 'self'; connect-src 'none'; base-uri 'none'`. *(security)*
-4. **Defensive JS init**: wrap each `app.js` section so one missing node can't
-   halt the whole script (guard clauses / `try…catch` per module) and add a
-   `window.onerror` breadcrumb. *(error handling)*
-5. **Add `404.html`** (branded, links home). *(UX)*
+1. ✅ **CLS fixed**: `width`/`height` + `decoding="async"` on all 31 images;
+   `img{height:auto}` keeps them responsive. *(perf)*
+2. ✅ **Fonts self-hosted**: Inter + Fraunces variable woff2 in `assets/fonts/`,
+   preloaded, Google links dropped → zero external requests. *(security/perf)*
+3. ✅ **CSP meta added** with `connect-src 'none'` etc. (see Security). *(security)*
+4. ✅ **Defensive JS**: `window.error` breadcrumb, null-guarded nav, lightbox
+   init wrapped so a missing node can't halt Reflect. *(error handling)*
+5. ✅ **`404.html`** — branded, self-contained, links home. *(UX)*
 
 ## P1 — testing & guardrails (a day) — catches the bugs we actually shipped
 
@@ -155,4 +153,4 @@ Ordered by impact ÷ effort. P0 = do first.
 - A JS framework, a server, or a database — the static model is correct for this.
 - Heavy bundling for 35 KB of source.
 
-> Note: items above are a **plan**, not yet implemented. Ask to execute any tier.
+> Status: **P0 is implemented** (2026-07-12). P1/P2 are still a plan — ask to execute a tier.

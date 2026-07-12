@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'unsafe-inline'; base-uri 'none'">
+<title>Not found — Schematic</title>
+<style>
+  :root{color-scheme:dark}
+  *{box-sizing:border-box}
+  body{
+    margin:0;min-height:100vh;display:flex;flex-direction:column;
+    align-items:center;justify-content:center;text-align:center;gap:.4rem;
+    padding:2rem;background:radial-gradient(120% 90% at 50% 35%,#1c0a16,#0b0709 62%);
+    color:#f4eef0;font-family:system-ui,-apple-system,"Inter",sans-serif;
+  }
+  .mark{width:72px;height:72px;margin-bottom:1.2rem;opacity:.92}
+  h1{font-family:Georgia,serif;font-weight:400;font-size:clamp(2.6rem,9vw,4.5rem);
+    letter-spacing:-.02em;line-height:1;margin:0}
+  p{color:#c2b7bc;max-width:42ch;line-height:1.6;margin:.6rem 0 1.6rem}
+  .dot{color:#e8557f}
+  a.home{
+    display:inline-block;background:#c8154e;color:#fff;text-decoration:none;
+    font-weight:600;padding:.8rem 1.8rem;border-radius:11px;transition:background .2s;
+  }
+  a.home:hover{background:#e8557f}
+  .kick{font-size:.76rem;letter-spacing:.22em;text-transform:uppercase;color:#e8557f;margin-bottom:.6rem}
+</style>
+</head>
+<body>
+  <svg class="mark" viewBox="0 0 64 64" aria-hidden="true">
+    <g fill="none" stroke="#e23a6d" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M32 8C22.6 8 17 13 17 19.2c0 2.4.9 4.4 2.3 6-2.6 1.8-4.1 4.5-4.1 7.6 0 3.2 1.6 5.9 4.1 7.6C21 49 25.9 52 32 52"/>
+      <path d="M32 8c9.4 0 15 5 15 11.2 0 2.4-.9 4.4-2.3 6 2.6 1.8 4.1 4.5 4.1 7.6 0 3.2-1.6 5.9-4.1 7.6C43 49 38.1 52 32 52"/>
+      <path d="M32 13.5v33" stroke-opacity=".45"/>
+      <path d="M32 23l-7 4.4M32 23l7 4.4M32 37l-7-4.4M32 37l7-4.4" stroke-opacity=".7"/>
+    </g>
+    <g fill="#e23a6d">
+      <circle cx="32" cy="13.5" r="2.5"/><circle cx="32" cy="30" r="2.4"/><circle cx="32" cy="46.5" r="2.5"/>
+      <circle cx="25" cy="27.4" r="2"/><circle cx="39" cy="27.4" r="2"/><circle cx="25" cy="32.6" r="2"/><circle cx="39" cy="32.6" r="2"/>
+    </g>
+  </svg>
+  <p class="kick">Error 404</p>
+  <h1>Lost the thread<span class="dot">.</span></h1>
+  <p>This page isn't part of the map. The schema you're looking for may have moved, or never existed here.</p>
+  <a class="home" href="/schematic/">Back to Schematic</a>
+</body>
+</html>

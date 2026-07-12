@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; script-src 'self'; font-src 'self'; connect-src 'none'; base-uri 'none'; form-action 'none'">
 <title>Schematic — Visualization of Maladaptive Schema</title>
 <meta name="description" content="Schematic: a 2016 design-research project visualizing the eighteen early maladaptive schemas (Young's schema model), with curated resources for understanding them. By Allen Sung Kang, YSDN 4004.">
 <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
@@ -15,9 +16,9 @@
 <meta name="twitter:title" content="Schematic — Visualization of Maladaptive Schema">
 <meta name="twitter:description" content="The eighteen early maladaptive schemas, each given a generative form.">
 <meta name="twitter:image" content="assets/img/og.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="preload" href="assets/fonts/inter-300.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/fraunces-300.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/fonts/fonts.css">
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -26,7 +27,7 @@
 
 <!-- ===== NAV ===== -->
 <header class="nav" id="nav">
-  <a href="#top" class="brand"><img class="brand-mark" src="assets/img/mark.svg" alt="" aria-hidden="true"><span class="wm">Schematic<span class="dot">.</span></span></a>
+  <a href="#top" class="brand"><img class="brand-mark" src="assets/img/mark.svg" width="64" height="64" decoding="async" alt="" aria-hidden="true"><span class="wm">Schematic<span class="dot">.</span></span></a>
   <button class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="nav-links" aria-label="Open menu">
     <svg class="ic-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
     <svg class="ic-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
@@ -44,7 +45,7 @@
 <!-- ===== HERO ===== -->
 <section class="hero" id="top">
   <div class="hero-glow"></div>
-  <img class="hero-mark" src="assets/img/logo.png" alt="Schematic generative line-mesh mark">
+  <img class="hero-mark" src="assets/img/logo.png" width="1000" height="1000" decoding="async" alt="Schematic generative line-mesh mark">
   <h1 class="hero-title">Schematic</h1>
   <p class="hero-sub">Visualization of
     <button class="term" type="button" aria-expanded="false" aria-describedby="tip-mal">Maladaptive</button>
@@ -170,23 +171,23 @@
     </header>
     <div class="schema-grid">
       <figure class="schema" data-full="assets/schemas/01.png" data-cap="01 · Abandonment / Instability">
-        <div class="schema-img"><img src="assets/schemas/th/01.jpg" alt="Schema 01 — Abandonment / Instability" loading="lazy"></div>
+        <div class="schema-img"><img src="assets/schemas/th/01.jpg" width="820" height="957" decoding="async" alt="Schema 01 — Abandonment / Instability" loading="lazy"></div>
         <figcaption><span class="schema-no">01</span><h4>Abandonment / Instability <span class="code">AB</span></h4><p>The perceived instability or unreliability of those available for support and connection.</p></figcaption>
       </figure>
       <figure class="schema" data-full="assets/schemas/02.png" data-cap="02 · Mistrust / Abuse">
-        <div class="schema-img"><img src="assets/schemas/th/02.jpg" alt="Schema 02 — Mistrust / Abuse" loading="lazy"></div>
+        <div class="schema-img"><img src="assets/schemas/th/02.jpg" width="820" height="957" decoding="async" alt="Schema 02 — Mistrust / Abuse" loading="lazy"></div>
         <figcaption><span class="schema-no">02</span><h4>Mistrust / Abuse <span class="code">MA</span></h4><p>The expectation that others will hurt, abuse, humiliate, cheat, lie, or take advantage.</p></figcaption>
       </figure>
       <figure class="schema" data-full="assets/schemas/03.png" data-cap="03 · Emotional Deprivation">
-        <div class="schema-img"><img src="assets/schemas/th/03.jpg" alt="Schema 03 — Emotional Deprivation" loading="lazy"></div>
+        <div class="schema-img"><img src="assets/schemas/th/03.jpg" width="820" height="957" decoding="async" alt="Schema 03 — Emotional Deprivation" loading="lazy"></div>
         <figcaption><span class="schema-no">03</span><h4>Emotional Deprivation <span class="code">ED</span></h4><p>The expectation that one's need for a normal degree of emotional support won't be met.</p></figcaption>
       </figure>
       <figure class="schema" data-full="assets/schemas/04.png" data-cap="04 · Defectiveness / Shame">
-        <div class="schema-img"><img src="assets/schemas/th/04.jpg" alt="Schema 04 — Defectiveness / Shame" loading="lazy"></div>
+        <div class="schema-img"><img src="assets/schemas/th/04.jpg" width="820" height="957" decoding="async" alt="Schema 04 — Defectiveness / Shame" loading="lazy"></div>
         <figcaption><span class="schema-no">04</span><h4>Defectiveness / Shame <span class="code">DS</span></h4><p>The feeling that one is defective, unwanted, or inferior — and unlovable if truly seen.</p></figcaption>
       </figure>
       <figure class="schema" data-full="assets/schemas/05.png" data-cap="05 · Social Isolation / Alienation">
-        <div class="schema-img"><img src="assets/schemas/th/05.jpg" alt="Schema 05 — Social Isolation / Alienation" loading="lazy"></div>
+        <div class="schema-img"><img src="assets/schemas/th/05.jpg" width="820" height="957" decoding="async" alt="Schema 05 — Social Isolation / Alienation" loading="lazy"></div>
         <figcaption><span class="schema-no">05</span><h4>Social Isolation / Alienation <span class="code">SI</span></h4><p>The feeling of being isolated from the world and part of no group or community.</p></figcaption>
       </figure>
     </div>
@@ -201,19 +202,19 @@
     </header>
     <div class="schema-grid">
       <figure class="schema" data-full="assets/schemas/06.png" data-cap="06 · Dependence / Incompetence">
-        <div class="schema-img"><img src="assets/schemas/th/06.jpg" alt="Schema 06 — Dependence / Incompetence" loading="lazy"></div>
+        <div class="schema-img"><img src="assets/schemas/th/06.jpg" width="820" height="957" decoding="async" alt="Schema 06 — Dependence / Incompetence" loading="lazy"></div>
         <figcaption><span class="schema-no">06</span><h4>Dependence / Incompetence <span class="code">DI</span></h4><p>The belief that one cannot handle everyday responsibilities competently without help.</p></figcaption>
       </figure>
       <figure class="schema" data-full="assets/schemas/07.png" data-cap="07 · Vulnerability to Harm / Illness">
-        <div class="schema-img"><img src="assets/schemas/th/07.jpg" alt="Schema 07 — Vulnerability to Harm or Illness" loading="lazy"></div>
+        <div class="schema-img"><img src="assets/schemas/th/07.jpg" width="820" height="957" decoding="async" alt="Schema 07 — Vulnerability to Harm or Illness" loading="lazy"></div>
         <figcaption><span class="schema-no">07</span><h4>Vulnerability to Harm / Illness <span class="code">VH</span></h4><p>An exaggerated fear that catastrophe will strike at any moment and can't be prevented.</p></figcaption>
       </figure>
       <figure class="schema" data-full="assets/schemas/08.png" data-cap="08 · Enmeshment / Undeveloped Self">
-        <div class="schema-img"><img src="assets/schemas/th/08.jpg" alt="Schema 08 — Enmeshment / Undeveloped Self" loading="lazy"></div>
+        <div class="schema-img"><img src="assets/schemas/th/08.jpg" width="820" height="957" decoding="async" alt="Schema 08 — Enmeshment / Undeveloped Self" loading="lazy"></div>
         <figcaption><span class="schema-no">08</span><h4>Enmeshment / Undeveloped Self <span class="code">EM</span></h4><p>Excessive closeness with others at the expense of individuation and a normal identity.</p></figcaption>
       </figure>
       <figure class="schema" data-full="assets/schemas/09.png" data-cap="09 · Failure to Achieve">
-        <div class="schema-img"><img src="assets/schemas/th/09.jpg" alt="Schema 09 — Failure to Achieve" loading="lazy"></div>
+        <div class="schema-img"><img src="assets/schemas/th/09.jpg" width="820" height="957" decoding="async" alt="Schema 09 — Failure to Achieve" loading="lazy"></div>
         <figcaption><span class="schema-no">09</span><h4>Failure to Achieve <span class="code">FA</span></h4><p>The belief that one has failed, or will inevitably fail, relative to one's peers.</p></figcaption>
       </figure>
     </div>
@@ -228,11 +229,11 @@
     </header>
     <div class="schema-grid">
       <figure class="schema" data-full="assets/schemas/10.png" data-cap="10 · Entitlement / Grandiosity">
-        <div class="schema-img"><img src="assets/schemas/th/10.jpg" alt="Schema 10 — Entitlement / Grandiosity" loading="lazy"></div>
+        <div class="schema-img"><img src="assets/schemas/th/10.jpg" width="820" height="957" decoding="async" alt="Schema 10 — Entitlement / Grandiosity" loading="lazy"></div>
         <figcaption><span class="schema-no">10</span><h4>Entitlement / Grandiosity <span class="code">ETI</span></h4><p>The belief that one is superior and entitled to special rights, free of normal limits.<a class="fn" href="#schema-note">*</a></p></figcaption>
       </figure>
       <figure class="schema" data-full="assets/schemas/11.png" data-cap="11 · Insufficient Self-Control / Self-Discipline">
-        <div class="schema-img"><img src="assets/schemas/th/11.jpg" alt="Schema 11 — Insufficient Self-Control / Self-Discipline" loading="lazy"></div>
+        <div class="schema-img"><img src="assets/schemas/th/11.jpg" width="820" height="957" decoding="async" alt="Schema 11 — Insufficient Self-Control / Self-Discipline" loading="lazy"></div>
         <figcaption><span class="schema-no">11</span><h4>Insufficient Self-Control <span class="code">ISI</span></h4><p>Difficulty exercising the self-control and frustration tolerance to reach one's goals.</p></figcaption>
       </figure>
     </div>
@@ -247,15 +248,15 @@
     </header>
     <div class="schema-grid">
       <figure class="schema" data-full="assets/schemas/12.png" data-cap="12 · Subjugation">
-        <div class="schema-img"><img src="assets/schemas/th/12.jpg" alt="Schema 12 — Subjugation" loading="lazy"></div>
+        <div class="schema-img"><img src="assets/schemas/th/12.jpg" width="820" height="957" decoding="async" alt="Schema 12 — Subjugation" loading="lazy"></div>
         <figcaption><span class="schema-no">12</span><h4>Subjugation <span class="code">SB</span></h4><p>Excessively surrendering control to others to avoid anger, retaliation, or abandonment.</p></figcaption>
       </figure>
       <figure class="schema" data-full="assets/schemas/13.png" data-cap="13 · Self-Sacrifice">
-        <div class="schema-img"><img src="assets/schemas/th/13.jpg" alt="Schema 13 — Self-Sacrifice" loading="lazy"></div>
+        <div class="schema-img"><img src="assets/schemas/th/13.jpg" width="820" height="957" decoding="async" alt="Schema 13 — Self-Sacrifice" loading="lazy"></div>
         <figcaption><span class="schema-no">13</span><h4>Self-Sacrifice <span class="code">SS</span></h4><p>Excessive focus on meeting others' needs at the expense of one's own gratification.</p></figcaption>
       </figure>
       <figure class="schema" data-full="assets/schemas/14.png" data-cap="14 · Approval-Seeking / Recognition">
-        <div class="schema-img"><img src="assets/schemas/th/14.jpg" alt="Schema 14 — Approval-Seeking / Recognition" loading="lazy"></div>
+        <div class="schema-img"><img src="assets/schemas/th/14.jpg" width="820" height="957" decoding="async" alt="Schema 14 — Approval-Seeking / Recognition" loading="lazy"></div>
         <figcaption><span class="schema-no">14</span><h4>Approval-Seeking / Recognition <span class="code">AS</span></h4><p>Excessive emphasis on approval and recognition at the expense of a secure, true self.</p></figcaption>
       </figure>
     </div>
@@ -270,19 +271,19 @@
     </header>
     <div class="schema-grid">
       <figure class="schema" data-full="assets/schemas/15.png" data-cap="15 · Negativity / Pessimism">
-        <div class="schema-img"><img src="assets/schemas/th/15.jpg" alt="Schema 15 — Negativity / Pessimism" loading="lazy"></div>
+        <div class="schema-img"><img src="assets/schemas/th/15.jpg" width="820" height="957" decoding="async" alt="Schema 15 — Negativity / Pessimism" loading="lazy"></div>
         <figcaption><span class="schema-no">15</span><h4>Negativity / Pessimism <span class="code">NP</span></h4><p>A pervasive, lifelong focus on the negative while minimizing the positive.</p></figcaption>
       </figure>
       <figure class="schema" data-full="assets/schemas/16.png" data-cap="16 · Emotional Inhibition">
-        <div class="schema-img"><img src="assets/schemas/th/16.jpg" alt="Schema 16 — Emotional Inhibition" loading="lazy"></div>
+        <div class="schema-img"><img src="assets/schemas/th/16.jpg" width="820" height="957" decoding="async" alt="Schema 16 — Emotional Inhibition" loading="lazy"></div>
         <figcaption><span class="schema-no">16</span><h4>Emotional Inhibition <span class="code">EI</span></h4><p>The excessive inhibition of spontaneous action, feeling, or communication.</p></figcaption>
       </figure>
       <figure class="schema" data-full="assets/schemas/17.png" data-cap="17 · Unrelenting Standards / Hypercriticalness">
-        <div class="schema-img"><img src="assets/schemas/th/17.jpg" alt="Schema 17 — Unrelenting Standards / Hypercriticalness" loading="lazy"></div>
+        <div class="schema-img"><img src="assets/schemas/th/17.jpg" width="820" height="957" decoding="async" alt="Schema 17 — Unrelenting Standards / Hypercriticalness" loading="lazy"></div>
         <figcaption><span class="schema-no">17</span><h4>Unrelenting Standards <span class="code">US</span></h4><p>Striving to meet very high standards of behavior and performance to avoid criticism.</p></figcaption>
       </figure>
       <figure class="schema" data-full="assets/schemas/18.png" data-cap="18 · Punitiveness">
-        <div class="schema-img"><img src="assets/schemas/th/18.jpg" alt="Schema 18 — Punitiveness" loading="lazy"></div>
+        <div class="schema-img"><img src="assets/schemas/th/18.jpg" width="820" height="957" decoding="async" alt="Schema 18 — Punitiveness" loading="lazy"></div>
         <figcaption><span class="schema-no">18</span><h4>Punitiveness <span class="code">PU</span></h4><p>The belief that people should be harshly punished for making mistakes.</p></figcaption>
       </figure>
     </div>
@@ -301,27 +302,27 @@
 
   <div class="masonry">
     <figure class="tile dark-tile" data-full="assets/gallery/mesh-star-2.png" data-cap="Generative mesh — radiant form">
-      <img src="assets/gallery/mesh-star-2.png" alt="Generative line-mesh star form" loading="lazy">
+      <img src="assets/gallery/mesh-star-2.png" width="1500" height="1500" decoding="async" alt="Generative line-mesh star form" loading="lazy">
       <figcaption>Generative mesh — radiant</figcaption>
     </figure>
     <figure class="tile" data-full="assets/gallery/visual-essay-a.jpg" data-cap="Visual essay — sheet A">
-      <img src="assets/gallery/visual-essay-a.jpg" alt="Visual essay sheet A" loading="lazy">
+      <img src="assets/gallery/visual-essay-a.jpg" width="1440" height="2160" decoding="async" alt="Visual essay sheet A" loading="lazy">
       <figcaption>Visual essay — A</figcaption>
     </figure>
     <figure class="tile" data-full="assets/gallery/colour-treatment.png" data-cap="Alternate colour treatment — full-spectrum series">
-      <img src="assets/gallery/colour-treatment.png" alt="Alternate full-colour treatment of a schema poster" loading="lazy">
+      <img src="assets/gallery/colour-treatment.png" width="1028" height="1200" decoding="async" alt="Alternate full-colour treatment of a schema poster" loading="lazy">
       <figcaption>Alternate colour treatment</figcaption>
     </figure>
     <figure class="tile dark-tile" data-full="assets/gallery/mesh-star-1.png" data-cap="Generative mesh — bloom form">
-      <img src="assets/gallery/mesh-star-1.png" alt="Generative line-mesh bloom form" loading="lazy">
+      <img src="assets/gallery/mesh-star-1.png" width="1500" height="1500" decoding="async" alt="Generative line-mesh bloom form" loading="lazy">
       <figcaption>Generative mesh — bloom</figcaption>
     </figure>
     <figure class="tile" data-full="assets/gallery/visual-essay-b.jpg" data-cap="Visual essay — sheet B">
-      <img src="assets/gallery/visual-essay-b.jpg" alt="Visual essay sheet B" loading="lazy">
+      <img src="assets/gallery/visual-essay-b.jpg" width="1440" height="2160" decoding="async" alt="Visual essay sheet B" loading="lazy">
       <figcaption>Visual essay — B</figcaption>
     </figure>
     <figure class="tile" data-full="assets/thumbs/poster-dws03.png" data-cap="Early poster layout — “CAT” series">
-      <img src="assets/thumbs/poster-dws03.png" alt="Early poster layout, CAT series" loading="lazy">
+      <img src="assets/thumbs/poster-dws03.png" width="1200" height="1400" decoding="async" alt="Early poster layout, CAT series" loading="lazy">
       <figcaption>Early layout study</figcaption>
     </figure>
   </div>
@@ -377,19 +378,19 @@
 
   <div class="docs">
     <a class="doc" href="assets/docs/Proposal.pdf" target="_blank" rel="noopener">
-      <div class="doc-thumb"><img src="assets/thumbs/doc-proposal.png" alt="" loading="lazy"></div>
+      <div class="doc-thumb"><img src="assets/thumbs/doc-proposal.png" width="695" height="900" decoding="async" alt="" loading="lazy"></div>
       <div class="doc-meta"><h4>Research Proposal</h4><p>Concept, scope, methods &amp; resources · 9 pp · PDF</p></div>
     </a>
     <a class="doc" href="assets/docs/Monograph.pdf" target="_blank" rel="noopener">
-      <div class="doc-thumb"><img src="assets/thumbs/doc-monograph.png" alt="" loading="lazy"></div>
+      <div class="doc-thumb"><img src="assets/thumbs/doc-monograph.png" width="695" height="900" decoding="async" alt="" loading="lazy"></div>
       <div class="doc-meta"><h4>Research Monograph</h4><p>Full literature review &amp; findings · PDF</p></div>
     </a>
     <a class="doc" href="assets/docs/Timeline.pdf" target="_blank" rel="noopener">
-      <div class="doc-thumb"><img src="assets/thumbs/doc-timeline.png" alt="" loading="lazy"></div>
+      <div class="doc-thumb"><img src="assets/thumbs/doc-timeline.png" width="900" height="600" decoding="async" alt="" loading="lazy"></div>
       <div class="doc-meta"><h4>Project Timeline</h4><p>12-week research → design → production plan · PDF</p></div>
     </a>
     <a class="doc" href="assets/docs/Posters.pdf" target="_blank" rel="noopener">
-      <div class="doc-thumb"><img src="assets/thumbs/doc-posters.png" alt="" loading="lazy"></div>
+      <div class="doc-thumb"><img src="assets/thumbs/doc-posters.png" width="582" height="900" decoding="async" alt="" loading="lazy"></div>
       <div class="doc-meta"><h4>Poster Set</h4><p>All 18 schema visualization plates · PDF</p></div>
     </a>
   </div>
@@ -415,7 +416,7 @@
 </button>
 
 <footer class="footer">
-  <span class="brand"><img class="brand-mark" src="assets/img/mark.svg" alt="" aria-hidden="true"><span class="wm">Schematic<span class="dot">.</span></span></span>
+  <span class="brand"><img class="brand-mark" src="assets/img/mark.svg" width="64" height="64" decoding="async" alt="" aria-hidden="true"><span class="wm">Schematic<span class="dot">.</span></span></span>
   <p>Visualization of Maladaptive Schema — a 2016 design-research project by Allen Sung Kang · YSDN 4004 Design Workshop.</p>
   <p class="footer-note">Educational project. Not medical advice or a diagnostic tool.</p>
 </footer>

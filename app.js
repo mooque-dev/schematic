@@ -1,3 +1,6 @@
+// Non-fatal error breadcrumb (never blocks the page)
+window.addEventListener('error', (e) => { try { console.warn('[schematic]', e.message); } catch (_) {} });
+
 const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 const smooth = reduceMotion ? 'auto' : 'smooth';
 
@@ -5,7 +8,7 @@ const smooth = reduceMotion ? 'auto' : 'smooth';
 const nav = document.getElementById('nav');
 const toTop = document.getElementById('to-top');
 const onScroll = () => {
-  nav.classList.toggle('scrolled', window.scrollY > 40);
+  if (nav) nav.classList.toggle('scrolled', window.scrollY > 40);
   if (toTop) toTop.classList.toggle('show', window.scrollY > 700);
 };
 onScroll();
@@ -184,8 +187,9 @@ if (fForm) {
 }
 
 // ===== Lightbox =====
-const tiles = Array.from(document.querySelectorAll('.tile, .schema'));
 const lb = document.getElementById('lightbox');
+if (lb) {
+const tiles = Array.from(document.querySelectorAll('.tile, .schema'));
 const lbImg = lb.querySelector('.lb-img');
 const lbCap = lb.querySelector('.lb-cap');
 const lbClose = lb.querySelector('.lb-close');
@@ -237,6 +241,7 @@ document.addEventListener('keydown', (e) => {
     else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
   }
 });
+} // end lightbox guard
 
 // ===== Reflect (self-check tool) =====
 const STATEMENTS = {
