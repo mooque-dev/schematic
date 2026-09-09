@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://mooque-dev.github.io/schematic/sitemap.xml

@@ -1,4 +1,5 @@
 :root{
+  color-scheme:dark;
   --ink:#f4eef0;
   --ink-dim:#c2b7bc;         /* 10.5:1 on bg — AA for all text */
   --ink-faint:#a49aa0;       /* 7.4:1 on bg — was #7d7278 (failed AA at 4.3:1) */
@@ -146,10 +147,11 @@ img{display:block;max-width:100%;height:auto}
 .section{
   max-width:var(--wrap);margin:0 auto;
   padding:clamp(4rem,10vw,8rem) clamp(1.2rem,5vw,3rem);
+  scroll-margin-top:4.5rem;   /* clears the fixed nav on in-page jumps */
 }
 .section.dark{
-  max-width:none;background:var(--bg-2);
-  border-top:1px solid var(--line-soft);border-bottom:1px solid var(--line-soft);
+  max-width:none;background:#150b10;   /* raised band, clearer than base #0b0709 */
+  border-top:1px solid var(--line);border-bottom:1px solid var(--line);
 }
 .section.dark > *{max-width:var(--wrap);margin-left:auto;margin-right:auto}
 .section-head{margin-bottom:3rem}
@@ -221,7 +223,7 @@ img{display:block;max-width:100%;height:auto}
   opacity:0;transform:translateY(6px);transition:opacity .3s,transform .3s;
 }
 .tile:hover img{transform:scale(1.05)}
-.tile:hover figcaption{opacity:1;transform:translateY(0)}
+.tile:hover figcaption,.tile:focus figcaption,.tile:focus-within figcaption{opacity:1;transform:translateY(0)}
 
 /* ===== SCHEMA GRID ===== */
 .schema-grid{
@@ -300,9 +302,12 @@ img{display:block;max-width:100%;height:auto}
 .lightbox.open{display:flex}
 .lb-img{max-width:90vw;max-height:84vh;border-radius:8px;box-shadow:0 30px 90px rgba(0,0,0,.7)}
 .lb-cap{
-  position:absolute;bottom:2rem;left:0;right:0;text-align:center;
-  color:var(--ink-dim);font-size:.85rem;letter-spacing:.08em;
+  position:absolute;bottom:1.4rem;left:0;right:0;text-align:center;
+  color:var(--ink-dim);padding:0 3.5rem;
 }
+.lb-cap .lb-title{display:block;font-size:.9rem;letter-spacing:.06em;color:var(--ink)}
+.lb-cap .lb-desc{display:block;font-size:.82rem;color:var(--ink-dim);
+  max-width:56ch;margin:.35rem auto 0;line-height:1.5;letter-spacing:0}
 .lb-close,.lb-prev,.lb-next{
   position:absolute;background:none;border:none;color:var(--ink);
   cursor:pointer;font-size:2.4rem;line-height:1;padding:.4rem .7rem;
@@ -346,7 +351,8 @@ img{display:block;max-width:100%;height:auto}
   transition:border-color .2s;
 }
 .finder-form input::placeholder{color:var(--ink-faint)}
-.finder-form input:focus{outline:none;border-color:var(--crimson-soft)}
+.finder-form input:focus{border-color:var(--crimson-soft)}
+.finder-form input:focus-visible{outline:2px solid var(--crimson-soft);outline-offset:2px}
 .finder-form button{
   background:var(--crimson);color:#fff;border:0;border-radius:11px;
   font:inherit;font-weight:600;font-size:.95rem;padding:.85rem 1.5rem;cursor:pointer;
@@ -559,6 +565,8 @@ img{display:block;max-width:100%;height:auto}
 
 /* ===== BIBLIO / ARCHIVE ===== */
 .biblio{margin-top:3rem;padding-top:2.4rem;border-top:1px solid var(--line-soft)}
+.arch-h{font-family:var(--sans);font-weight:600;font-size:.82rem;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--ink-faint);margin:0 0 1.4rem}
 .biblio h3{font-family:var(--sans);font-weight:600;font-size:.82rem;letter-spacing:.14em;
   text-transform:uppercase;color:var(--ink-faint);margin:0 0 1.4rem}
 
@@ -631,8 +639,25 @@ img{display:block;max-width:100%;height:auto}
 }
 @media(prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
-  *{animation:none!important}
-  .reveal,.dbar-fill,.rp-bar span,.tile img,.schema-img img,.hero-mark,
-  .reflect-cta,.results-schema,.finder-match{transition:none!important}
+  *,*::before,*::after{
+    animation-duration:.001ms!important;animation-iteration-count:1!important;
+    transition-duration:.001ms!important;scroll-behavior:auto!important;
+  }
   .reveal{opacity:1;transform:none}
+}
+
+/* ===== COPING LIST (concept, card II) ===== */
+.coping-list{list-style:none;margin:.65rem 0 0;padding:0;display:grid;gap:.5rem}
+.coping-list li{position:relative;padding-left:.95rem;color:var(--ink-dim);font-size:.9rem;line-height:1.45}
+.coping-list li::before{content:"";position:absolute;left:0;top:.62em;width:5px;height:5px;border-radius:50%;background:var(--crimson-soft)}
+.coping-list strong{color:var(--ink);font-weight:600}
+
+/* ===== :active press feedback (touch + keyboard) ===== */
+.card:active,.schema:active,.doc:active,.res-group:active,.tile:active,
+.finder-match:active,.results-schema:active,.reflect-cta:active,
+.domain-nav a:active,.schema-img img:active{transform:scale(.985)}
+@media(prefers-reduced-motion:reduce){
+  .card:active,.schema:active,.doc:active,.res-group:active,.tile:active,
+  .finder-match:active,.results-schema:active,.reflect-cta:active,
+  .domain-nav a:active{transform:none}
 }

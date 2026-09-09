@@ -1,56 +1,16 @@
+/* Self-hosted variable fonts (latin subset). One face per family, declared as a
+   weight range so 300–700 all render true from the variable file — no faux-bold. */
 @font-face {
   font-family: 'Fraunces';
   font-style: normal;
-  font-weight: 300;
-  font-display: swap;
-  src: url('fraunces-300.woff2') format('woff2');
-}
-@font-face {
-  font-family: 'Fraunces';
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: url('fraunces-300.woff2') format('woff2');
-}
-@font-face {
-  font-family: 'Fraunces';
-  font-style: normal;
-  font-weight: 500;
-  font-display: swap;
-  src: url('fraunces-300.woff2') format('woff2');
-}
-@font-face {
-  font-family: 'Fraunces';
-  font-style: normal;
-  font-weight: 600;
+  font-weight: 300 700;
   font-display: swap;
   src: url('fraunces-300.woff2') format('woff2');
 }
 @font-face {
   font-family: 'Inter';
   font-style: normal;
-  font-weight: 300;
-  font-display: swap;
-  src: url('inter-300.woff2') format('woff2');
-}
-@font-face {
-  font-family: 'Inter';
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: url('inter-300.woff2') format('woff2');
-}
-@font-face {
-  font-family: 'Inter';
-  font-style: normal;
-  font-weight: 500;
-  font-display: swap;
-  src: url('inter-300.woff2') format('woff2');
-}
-@font-face {
-  font-family: 'Inter';
-  font-style: normal;
-  font-weight: 600;
+  font-weight: 300 700;
   font-display: swap;
   src: url('inter-300.woff2') format('woff2');
 }

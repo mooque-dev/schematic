@@ -4,6 +4,14 @@ window.addEventListener('error', (e) => { try { console.warn('[schematic]', e.me
 const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 const smooth = reduceMotion ? 'auto' : 'smooth';
 
+// Make the page behind an open modal inert (removes it from tab + AT reading order).
+// Queried lazily and null-guarded so it is safe regardless of DOM readiness.
+function setBgInert(on) {
+  [document.getElementById('nav'), document.querySelector('main'),
+   document.querySelector('.footer'), document.getElementById('to-top')]
+    .forEach(el => { if (el) el.toggleAttribute('inert', on); });
+}
+
 // ===== Nav background on scroll + back-to-top =====
 const nav = document.getElementById('nav');
 const toTop = document.getElementById('to-top');
@@ -132,7 +140,9 @@ function scoreSchemas(text) {
   return SCHEMAS
     .map(s => {
       let score = 0;
-      s.kw.forEach(k => { if (q.includes(k.replace(/['’]/g, ''))) score += k.includes(' ') ? 2 : 1; });
+      // anchor each keyword to a word start (q is space-padded) so stems still
+      // match ("abandon"→abandoned) but mid-word false positives don't ("lie"⊄believe)
+      s.kw.forEach(k => { if (q.includes(' ' + k.replace(/['’]/g, ''))) score += k.includes(' ') ? 2 : 1; });
       return { s, score };
     })
     .filter(x => x.score > 0)
@@ -152,13 +162,21 @@ function jumpToSchema(n) {
 function runFinder(text) {
   fResults.innerHTML = '';
   const t = text.trim();
-  if (!t) return;
+  if (!t) {
+    const p = document.createElement('p');
+    p.className = 'finder-none';
+    p.textContent = 'Type a few words about how you have been feeling, then press Find.';
+    fResults.appendChild(p);
+    fInput.focus();
+    return;
+  }
   const matches = scoreSchemas(t);
   if (!matches.length) {
     const p = document.createElement('p');
     p.className = 'finder-none';
     p.textContent = 'No clear match from those words — try describing a feeling or situation, or browse the domains below.';
     fResults.appendChild(p);
+    fResults.scrollIntoView({ behavior: smooth, block: 'nearest' });
     return;
   }
   const lead = document.createElement('p');
@@ -177,6 +195,7 @@ function runFinder(text) {
     b.addEventListener('click', () => jumpToSchema(s.n));
     fResults.appendChild(b);
   });
+  fResults.scrollIntoView({ behavior: smooth, block: 'nearest' });
 }
 
 if (fForm) {
@@ -189,42 +208,64 @@ if (fForm) {
 // ===== Lightbox =====
 const lb = document.getElementById('lightbox');
 if (lb) {
-const tiles = Array.from(document.querySelectorAll('.tile, .schema'));
+// page the schema posters and the gallery tiles as two separate loops
+const groups = {
+  schema: Array.from(document.querySelectorAll('.schema')),
+  gallery: Array.from(document.querySelectorAll('.tile')),
+};
 const lbImg = lb.querySelector('.lb-img');
 const lbCap = lb.querySelector('.lb-cap');
 const lbClose = lb.querySelector('.lb-close');
+let group = 'schema';
 let idx = 0;
 let lastFocus = null;
 
 function show(i) {
-  idx = (i + tiles.length) % tiles.length;
-  const t = tiles[idx];
+  const list = groups[group];
+  idx = (i + list.length) % list.length;
+  const t = list[idx];
+  const cap = t.dataset.cap || '';
+  const desc = (t.querySelector('figcaption p')?.textContent || '').trim();
   lbImg.src = t.dataset.full;
-  lbImg.alt = t.dataset.cap || '';
-  lbCap.textContent = t.dataset.cap || '';
+  lbImg.alt = desc ? `${cap}. ${desc}` : cap;
+  // build caption as title (+ optional description) — textContent only, no innerHTML
+  lbCap.textContent = '';
+  const ts = document.createElement('span');
+  ts.className = 'lb-title';
+  ts.textContent = cap;
+  lbCap.appendChild(ts);
+  if (desc) {
+    const ds = document.createElement('span');
+    ds.className = 'lb-desc';
+    ds.textContent = desc;
+    lbCap.appendChild(ds);
+  }
 }
-function open(i) {
+function open(g, i) {
+  group = g;
   lastFocus = document.activeElement;
   show(i);
   lb.classList.add('open');
   lb.setAttribute('aria-hidden', 'false');
+  setBgInert(true);
   lbClose.focus();
 }
 function close() {
   lb.classList.remove('open');
   lb.setAttribute('aria-hidden', 'true');
+  setBgInert(false);
   lbImg.src = '';
   if (lastFocus) lastFocus.focus();
 }
 
-tiles.forEach((t, i) => {
+Object.keys(groups).forEach(g => groups[g].forEach((t, i) => {
   t.setAttribute('role', 'button');
   t.setAttribute('tabindex', '0');
-  t.addEventListener('click', () => open(i));
+  t.addEventListener('click', () => open(g, i));
   t.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(i); }
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(g, i); }
   });
-});
+}));
 lbClose.addEventListener('click', close);
 lb.querySelector('.lb-next').addEventListener('click', (e) => { e.stopPropagation(); show(idx + 1); });
 lb.querySelector('.lb-prev').addEventListener('click', (e) => { e.stopPropagation(); show(idx - 1); });
@@ -299,12 +340,14 @@ if (rf) {
     rf.classList.add('open');
     rf.setAttribute('aria-hidden', 'false');
     document.body.style.overflow = 'hidden';
+    setBgInert(true);
     showIntro();
   }
   function closeReflect() {
     rf.classList.remove('open');
     rf.setAttribute('aria-hidden', 'true');
     document.body.style.overflow = '';
+    setBgInert(false);
     if (rfLastFocus) rfLastFocus.focus();
   }
   function only(step) {
@@ -394,7 +437,7 @@ if (rf) {
   document.getElementById('reflect-begin').addEventListener('click', startQuiz);
   document.getElementById('reflect-retake').addEventListener('click', () => { answers = {}; startQuiz(); });
   document.getElementById('reflect-done').addEventListener('click', closeReflect);
-  document.getElementById('reflect-back').addEventListener('click', () => { if (qi > 0) { qi--; renderQ(); } });
+  document.getElementById('reflect-back').addEventListener('click', () => { if (qi > 0) { qi--; renderQ(); scale.querySelector('button').focus(); } });
   document.getElementById('reflect-skip').addEventListener('click', () => { delete answers[ORDER[qi]]; advance(); });
   scale.querySelectorAll('button').forEach(b => {
     b.addEventListener('click', () => { answers[ORDER[qi]] = Number(b.dataset.v); advance(); });
@@ -413,6 +456,8 @@ if (rf) {
         .filter(el => el.offsetParent !== null && !el.disabled);
       if (!f.length) return;
       const first = f[0], last = f[f.length - 1];
+      // if focus escaped the dialog (e.g. a button disabled itself under focus), recapture it
+      if (!f.includes(document.activeElement)) { e.preventDefault(); first.focus(); return; }
       if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
       else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
     }

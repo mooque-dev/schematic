@@ -31,12 +31,16 @@ sips -s format jpeg -s formatOptions 82 --resampleWidth 820 \
 ## Architecture
 
 ```
-index.html   One page: Hero · About · Concept · Schemas · Studies · Resources · Archive
-404.html     Branded, self-contained not-found page (links to /schematic/).
-styles.css   Dark editorial theme. Design tokens in :root (--ink*, --crimson*, --line*).
-app.js       Six concerns in one IIFE-less file (see below).
-assets/      img/ (mark, favicon, og, hero) · fonts/ (self-hosted Inter + Fraunces woff2)
-             schemas/ (01–18.png full + th/ jpg thumbs) · gallery/ · docs/ (PDFs) · thumbs/
+index.html      One page: Hero · About · Concept · Schemas · Studies · Resources · Archive
+404.html        Branded, self-contained not-found page (links to /schematic/).
+styles.css      Dark editorial theme. Design tokens in :root (--ink*, --crimson*, --line*).
+app.js          Nine concerns in one flat file (see below).
+CHANGELOG.md    Full push/deploy history.
+sitemap.xml · robots.txt   Static SEO (project-page: robots at a subpath is advisory only).
+assets/  img/    mark, favicon, apple-touch-icon, og, hero (logo.png)
+         fonts/  self-hosted Inter + Fraunces variable woff2 (latin subset, one face each, 300–700 range)
+         schemas/  01–18.png (full, lightbox-only) + th/*.jpg (grid thumbs)
+         gallery/  originals (lightbox) + th/*.jpg (Studies grid thumbs) · docs/ (PDFs) · thumbs/
 ```
 
 `app.js` sections, in order: (1) nav scroll state + back-to-top,
@@ -109,6 +113,41 @@ hardening, (5) reveal-on-scroll, (6) accessible term tooltips,
 
 ---
 
+# Enhancement pass — 2026-09-09
+
+A multi-dimension audit (8 reviewers → adversarial verify) produced 43 verified
+findings; **28 were implemented** this pass (commit follows this date). Highlights:
+
+- **Content:** rewrote the garbled "modes" construct into an accurate definition;
+  taught the three coping styles (surrender / avoidance / overcompensation) as a
+  gloss in card II; softened "all are destructive" → "self-defeating to some
+  degree"; fixed two bibliography errors (Bartlett co-author; Young year/order);
+  date consistency (2016–2017).
+- **A11y:** background landmarks (`nav`/`main`/`.footer`/`#to-top`) made `inert`
+  while a modal is open (`setBgInert`); fixed the Reflect focus-trap escape when
+  the self-disabling Back button blurred to `<body>`; restored the finder input
+  focus ring; fixed heading order (Archive gained a "Documents" `h3`); removed the
+  footnote `<a>` nested in a role=button; reduced-motion made comprehensive;
+  added `color-scheme:dark`.
+- **UX:** lightbox pages schemas and gallery as **separate loops**; lightbox
+  caption now shows **title + one-line description** (was number+title only, built
+  with `textContent`); tile captions reveal on focus; finder gives empty-submit
+  feedback and scrolls results into view.
+- **Perf:** Studies grid uses `assets/gallery/th/*.jpg` thumbnails (~3.6 MB → ~0.5 MB).
+- **Correctness:** finder keyword matching **anchored to word starts** — kills
+  false positives (`lie`⊄believe, `die`⊄studied) while keeping stems (`abandon`→abandoned).
+- **SEO:** JSON-LD `CreativeWork`, canonical, theme-color, apple-touch-icon,
+  sitemap.xml/robots.txt, absolute OG/Twitter image URLs + og extras; moved
+  `<h1>`/hero inside `<main>`.
+- **Fonts:** collapsed to one variable face per family with `font-weight:300 700`
+  (true bold for `<strong>`, no faux-synthesis).
+
+Verified in-browser: zero external requests preserved, no CSP violations (the
+JSON-LD data block is not subject to `script-src`), no console errors, all
+interactive flows green.
+
+---
+
 # Prioritized roadmap — structure, testing, error handling
 
 Ordered by impact ÷ effort. P0 = do first.
@@ -141,16 +180,30 @@ Ordered by impact ÷ effort. P0 = do first.
 11. **Modularize `app.js`** → `src/js/{nav,finder,reflect,lightbox,a11y}.js`
     + a tiny `esbuild` bundle/minify step. Add `package.json` with scripts
     (`dev`, `build`, `test`, `lint`).
-12. **WebP posters**: convert `schemas/*.png` → `.webp` (~60% smaller lightbox
-    payload) with PNG fallback.
+12. **WebP posters + hero mark**: convert `schemas/*.png` and `img/logo.png` →
+    `.webp` (~60% smaller) with `<picture>` PNG fallback. **Needs `cwebp` or
+    `pngquant`** — macOS `sips` here has no WebP encoder, so this was deferred.
 13. **Rewrite git history** (`git filter-repo`) to drop the ~11 MB of removed
     PDFs. **Destructive / force-push — coordinate before doing it.**
 14. **Reconsider a build/SSG** (Astro/Eleventy) only if content stops fitting in
     one hand-authored `index.html`.
+
+## Remaining polish (low-severity, deferred from the 2026-09-09 audit)
+
+- Throttle the two scroll handlers with `requestAnimationFrame` (both read
+  layout — `offsetTop`/`scrollHeight` — on every scroll event).
+- `@media (prefers-contrast: more)`: strengthen hairline borders + faint text.
+- Term tooltips: make dismissable on `Esc` / hoverable (WCAG 1.4.13).
+- Code hygiene (no-build-safe): factor the two focus-trap blocks and the two
+  result-button builders into shared helpers; retire the unused `--crimson-art`
+  token drift; `jumpToSchema`/lightbox rely on positional DOM order.
+- Schema codes `ETI`/`ISI` break the 2-letter convention — left as the author's
+  original poster codes (fidelity); revisit only if standardizing.
 
 ## Explicitly out of scope / not needed
 
 - A JS framework, a server, or a database — the static model is correct for this.
 - Heavy bundling for 35 KB of source.
 
-> Status: **P0 is implemented** (2026-07-12). P1/P2 are still a plan — ask to execute a tier.
+> Status: **P0** (2026-07-12) and the **2026-09-09 enhancement pass** are implemented.
+> P1 (testing/CI) and P2 (scale) are still a plan — ask to execute a tier.

@@ -10,6 +10,28 @@ and was rebuilt into a single-page, static, dependency-free educational site.
 
 ---
 
+## 2026-09-09 — Enhancement pass (audit-driven)
+
+A multi-dimension audit (8 reviewers → adversarial verification) surfaced 43
+verified findings; 28 implemented across content, a11y, UX, perf, SEO, and fonts.
+
+- **Content:** accurate "modes" definition; the three coping styles now taught
+  (not just named); softened the absolute "all are destructive"; fixed two
+  bibliography errors; date consistency.
+- **A11y:** background made `inert` behind modals; fixed a Reflect focus-trap
+  escape; restored the finder focus ring; fixed Archive heading order; removed a
+  role=button-nested link; comprehensive reduced-motion; `color-scheme:dark`.
+- **UX:** lightbox pages schemas/gallery as separate loops and shows a
+  title + description caption; tile captions reveal on focus; finder empty-submit
+  feedback + scroll-into-view.
+- **Perf:** Studies grid thumbnails (~3.6 MB → ~0.5 MB).
+- **Correctness:** finder keyword matching anchored to word starts (no more
+  `lie`⊂believe false positives).
+- **SEO:** JSON-LD, canonical, theme-color, apple-touch-icon, sitemap.xml,
+  robots.txt, absolute OG image URLs; `<h1>` moved inside `<main>`.
+- **Fonts:** variable `font-weight:300 700` range (true bold, no faux-synthesis).
+- Added **CHANGELOG.md**; refreshed **CLAUDE.md** (audit + roadmap).
+
 ## 2026-07-12 — Hardening pass (P0) · `7d91303`
 
 Security, privacy, and loading-performance foundation.
