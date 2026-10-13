@@ -188,12 +188,11 @@ Ordered by impact ÷ effort. P0 = do first.
 14. **Reconsider a build/SSG** (Astro/Eleventy) only if content stops fitting in
     one hand-authored `index.html`.
 
-## Remaining polish (low-severity, deferred from the 2026-09-09 audit)
+## Remaining polish
 
-- Throttle the two scroll handlers with `requestAnimationFrame` (both read
-  layout — `offsetTop`/`scrollHeight` — on every scroll event).
-- `@media (prefers-contrast: more)`: strengthen hairline borders + faint text.
-- Term tooltips: make dismissable on `Esc` / hoverable (WCAG 1.4.13).
+- ✅ **Done 2026-10-13:** scroll handlers coalesced into one `requestAnimationFrame`
+  handler; `@media (prefers-contrast: more)` block added; term tooltips made
+  `Esc`-dismissable + hoverable (WCAG 1.4.13).
 - Code hygiene (no-build-safe): factor the two focus-trap blocks and the two
   result-button builders into shared helpers; retire the unused `--crimson-art`
   token drift; `jumpToSchema`/lightbox rely on positional DOM order.

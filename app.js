@@ -15,12 +15,10 @@ function setBgInert(on) {
 // ===== Nav background on scroll + back-to-top =====
 const nav = document.getElementById('nav');
 const toTop = document.getElementById('to-top');
-const onScroll = () => {
+const updateNavChrome = () => {
   if (nav) nav.classList.toggle('scrolled', window.scrollY > 40);
   if (toTop) toTop.classList.toggle('show', window.scrollY > 700);
 };
-onScroll();
-window.addEventListener('scroll', onScroll, { passive: true });
 if (toTop) toTop.addEventListener('click', () => {
   window.scrollTo({ top: 0, behavior: smooth });
   document.querySelector('.brand').focus?.();
@@ -68,7 +66,15 @@ function updateActiveNav() {
     activeLink = current;
   }
 }
-window.addEventListener('scroll', updateActiveNav, { passive: true });
+// one rAF-coalesced scroll handler — both of these read layout, so batch per frame
+let scrollTicking = false;
+function onScrollFrame() {
+  if (scrollTicking) return;
+  scrollTicking = true;
+  requestAnimationFrame(() => { updateNavChrome(); updateActiveNav(); scrollTicking = false; });
+}
+window.addEventListener('scroll', onScrollFrame, { passive: true });
+updateNavChrome();
 updateActiveNav();
 
 // ===== External links: announce new tab, ensure noopener =====
@@ -106,6 +112,15 @@ document.addEventListener('click', (e) => {
   if (!e.target.classList.contains('term')) {
     document.querySelectorAll('.term').forEach(t => t.setAttribute('aria-expanded', 'false'));
   }
+});
+// Esc dismisses an open tooltip (even on hover/focus); re-engaging re-enables it (WCAG 1.4.13)
+document.addEventListener('keydown', (e) => {
+  if (e.key !== 'Escape') return;
+  document.querySelectorAll('.term').forEach(t => { t.setAttribute('aria-expanded', 'false'); t.classList.add('dismissed'); });
+});
+document.querySelectorAll('.term').forEach(t => {
+  t.addEventListener('mouseenter', () => t.classList.remove('dismissed'));
+  t.addEventListener('focus', () => t.classList.remove('dismissed'));
 });
 
 // ===== Guided finder =====

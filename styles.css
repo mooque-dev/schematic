@@ -127,9 +127,14 @@ img{display:block;max-width:100%;height:auto}
   text-align:left;opacity:0;pointer-events:none;transition:opacity .2s,transform .2s;
   z-index:5;box-shadow:0 20px 50px rgba(0,0,0,.5);
 }
+/* invisible bridge across the gap so the tooltip stays hoverable (WCAG 1.4.13) */
+.tip::before{content:"";position:absolute;left:0;right:0;bottom:100%;height:.8rem}
 .term:hover + .tip,
 .term:focus-visible + .tip,
-.term[aria-expanded="true"] + .tip{opacity:1;transform:translate(-50%,0)}
+.term[aria-expanded="true"] + .tip,
+.tip:hover{opacity:1;transform:translate(-50%,0);pointer-events:auto}
+/* Esc-dismissed: stays hidden until the term is re-engaged (WCAG 1.4.13 dismissable) */
+.term.dismissed + .tip{opacity:0;pointer-events:none}
 .hero-meta{
   position:relative;z-index:1;
   font-size:.82rem;letter-spacing:.12em;text-transform:uppercase;
@@ -660,4 +665,17 @@ img{display:block;max-width:100%;height:auto}
   .card:active,.schema:active,.doc:active,.res-group:active,.tile:active,
   .finder-match:active,.results-schema:active,.reflect-cta:active,
   .domain-nav a:active{transform:none}
+}
+
+/* ===== HIGH CONTRAST (prefers-contrast: more) ===== */
+@media (prefers-contrast: more){
+  :root{
+    --ink-faint:#c2b7bc;                    /* lift faint text to the dim tier */
+    --line:rgba(244,238,240,.34);
+    --line-soft:rgba(244,238,240,.22);
+    --line-strong:rgba(244,238,240,.55);
+  }
+  .term{border-bottom-color:var(--crimson-soft)}
+  .nav-links a::after{height:2px}
+  .tip,.finder-form input{border-width:2px}
 }
