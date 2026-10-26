@@ -1,0 +1,21 @@
+{
+  "name": "schematic",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Schematic — a static, dependency-free site visualizing the 18 early maladaptive schemas. The shipped site has NO runtime dependencies and NO build step; everything below is dev-only tooling for tests and CI.",
+  "homepage": "https://mooque-dev.github.io/schematic/",
+  "license": "MIT",
+  "scripts": {
+    "serve": "python3 -m http.server 4599",
+    "test:unit": "node --test tests/schema-model.test.cjs",
+    "test:links": "node tests/check-links.mjs",
+    "test:links:internal": "node tests/check-links.mjs --internal",
+    "test:e2e": "playwright test",
+    "test:e2e:install": "playwright install --with-deps chromium",
+    "test": "npm run test:unit && npm run test:links:internal"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "^4.10.2",
+    "@playwright/test": "^1.49.0"
+  }
+}

@@ -34,14 +34,38 @@ sips -s format jpeg -s formatOptions 82 --resampleWidth 820 \
 index.html      One page: Hero · About · Concept · Schemas · Studies · Resources · Archive
 404.html        Branded, self-contained not-found page (links to /schematic/).
 styles.css      Dark editorial theme. Design tokens in :root (--ink*, --crimson*, --line*).
-app.js          Nine concerns in one flat file (see below).
+app.js          DOM wiring for nine concerns (see below). Consumes window.SchemaModel.
+assets/js/schema-model.js   Pure data + scoring (SCHEMAS, DOMAINS, STATEMENTS,
+                scoreSchemas, scoreReflection). Dual-mode: browser global AND Node
+                module.exports, so it is unit-tested with zero build step.
 CHANGELOG.md    Full push/deploy history.
 sitemap.xml · robots.txt   Static SEO (project-page: robots at a subpath is advisory only).
-assets/  img/    mark, favicon, apple-touch-icon, og, hero (logo.png)
+tests/          schema-model.test.cjs (node:test unit) · check-links.mjs (dep-free
+                link/asset checker) · e2e/site.spec.mjs (Playwright + axe-core).
+package.json    DEV-only tooling (tests/CI). The shipped site has NO runtime deps
+                and NO build step — keep it that way.
+.github/workflows/  ci.yml (unit + internal links + e2e/axe on push/PR) ·
+                links.yml (full external link check, weekly + manual).
+assets/  img/    mark, favicon, apple-touch-icon, og, hero (logo.webp)
          fonts/  self-hosted Inter + Fraunces variable woff2 (latin subset, one face each, 300–700 range)
-         schemas/  01–18.png (full, lightbox-only) + th/*.jpg (grid thumbs)
+         schemas/  01–18.webp (full, lightbox-only; ~90 KB each) + th/*.jpg (grid thumbs)
          gallery/  originals (lightbox) + th/*.jpg (Studies grid thumbs) · docs/ (PDFs) · thumbs/
 ```
+
+## Testing & CI
+
+```bash
+npm install            # dev-only deps (Playwright + axe); no runtime deps
+npm test               # unit + internal link check (fast, deterministic)
+npm run test:unit      # node --test tests/schema-model.test.cjs
+npm run test:links     # internal refs + live external URLs
+npm run test:e2e:install && npm run test:e2e   # Playwright + axe (needs chromium)
+```
+CI (`.github/workflows/ci.yml`) runs unit + internal links + e2e/axe on every
+push/PR. The axe scan catches contrast regressions (it already caught `.card-no`
+and `.rc-sub`). The link checker catches dead refs (the class of bug we shipped
+twice). External link-rot is a separate weekly job. When editing the finder or
+Reflect scoring, change `assets/js/schema-model.js` and the unit test together.
 
 `app.js` sections, in order: (1) nav scroll state + back-to-top,
 (2) mobile nav toggle, (3) scroll-spy `aria-current`, (4) external-link
@@ -163,28 +187,33 @@ Ordered by impact ÷ effort. P0 = do first.
    init wrapped so a missing node can't halt Reflect. *(error handling)*
 5. ✅ **`404.html`** — branded, self-contained, links home. *(UX)*
 
-## P1 — testing & guardrails (a day) — catches the bugs we actually shipped
+## P1 — testing & guardrails — ✅ DONE (2026-10-26)
 
-6. **Link checker in CI** (`lychee` or `linkinator`). We shipped a **dead ISST
-   link twice**; this class of bug is now auto-caught.
-7. **Extract pure logic** — `scoreSchemas()` (finder) and the Reflect
-   domain/schema scoring — into a small ES module and **unit-test** with
-   `node:test` or Vitest (deterministic, no DOM).
-8. **Playwright e2e + `axe-core`**: Reflect happy-path, keyboard/focus-trap,
-   mobile-nav toggle, and an automated a11y scan (locks in the WCAG work).
-9. **Lighthouse CI** with budgets (perf / a11y / best-practices ≥ 90).
-10. **GitHub Actions** running 6–9 on every PR to `main`.
+6. ✅ **Link checker** (`tests/check-links.mjs`, dependency-free) — internal refs +
+   anchors + live external URLs. Internal gates CI; external runs weekly.
+7. ✅ **Pure logic extracted** to `assets/js/schema-model.js` and **unit-tested**
+   (`node:test`, 17 cases) — covers the finder anchoring + Reflect scoring.
+8. ✅ **Playwright e2e + `axe-core`** (`tests/e2e/site.spec.mjs`, 8 tests): Reflect
+   flow + focus, lightbox, finder, mobile nav, the zero-external-requests
+   invariant, and an axe scan (caught 3 real contrast bugs on first run).
+9. ⏸️ **Lighthouse CI** — deferred: score variance makes it a flaky gate; revisit
+   as an informational/non-blocking job if desired.
+10. ✅ **GitHub Actions** (`.github/workflows/ci.yml`) runs 6–8 on every push/PR.
 
-## P2 — structure & scale (when it grows)
+## P2 — structure & scale
 
-11. **Modularize `app.js`** → `src/js/{nav,finder,reflect,lightbox,a11y}.js`
-    + a tiny `esbuild` bundle/minify step. Add `package.json` with scripts
-    (`dev`, `build`, `test`, `lint`).
-12. **WebP posters + hero mark**: convert `schemas/*.png` and `img/logo.png` →
-    `.webp` (~60% smaller) with `<picture>` PNG fallback. **Needs `cwebp` or
-    `pngquant`** — macOS `sips` here has no WebP encoder, so this was deferred.
-13. **Rewrite git history** (`git filter-repo`) to drop the ~11 MB of removed
-    PDFs. **Destructive / force-push — coordinate before doing it.**
+11. ◑ **Modularize `app.js`** — the pure model is now its own file (P1 #7); the
+    remaining DOM wiring stays one flat `app.js` (no bundler — keeps zero-build).
+    Further splitting into ES modules is optional, not needed yet.
+12. ✅ **WebP posters + hero** (2026-10-26): `schemas/*.webp` (~90 KB each, down
+    from ~1 MB PNG — 18 MB → 1.8 MB) and `logo.webp`; PNGs removed. WebP is
+    universal across this site's modern baseline (`inert`, variable fonts), so no
+    fallback is kept. Converted with Pillow (`PIL ... save(..., 'WEBP')`).
+13. ⚠️ **Git history rewrite** — NOT done. It would drop ~11 MB of deleted PDFs
+    (and now the removed PNGs) but it is destructive (force-push), invalidates
+    every commit SHA cited in CHANGELOG.md, and the payoff is marginal:
+    `actions/checkout` is shallow, so CI does not pay the history cost. Deliberately
+    left; do only on explicit request, with a backup tag/bundle first.
 14. **Reconsider a build/SSG** (Astro/Eleventy) only if content stops fitting in
     one hand-authored `index.html`.
 
@@ -204,5 +233,6 @@ Ordered by impact ÷ effort. P0 = do first.
 - A JS framework, a server, or a database — the static model is correct for this.
 - Heavy bundling for 35 KB of source.
 
-> Status: **P0** (2026-07-12) and the **2026-09-09 enhancement pass** are implemented.
-> P1 (testing/CI) and P2 (scale) are still a plan — ask to execute a tier.
+> Status: **P0** (2026-07-12), the **2026-09-09 enhancement pass**, **P1 testing/CI**
+> and **P2 WebP** (2026-10-26) are implemented. Remaining: optional ES-module split,
+> Lighthouse CI, and the deliberately-deferred git-history rewrite.

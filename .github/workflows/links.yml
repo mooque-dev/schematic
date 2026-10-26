@@ -1,0 +1,23 @@
+name: External link check
+
+# External URLs rot over time (the ISST link broke twice). This runs the full
+# checker — including the live network — weekly and on demand, kept out of the
+# PR gate so a flaky third-party host can't red an unrelated change.
+on:
+  schedule:
+    - cron: '0 9 * * 1' # Mondays 09:00 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  links:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Check all links (internal + external)
+        run: node tests/check-links.mjs

@@ -1,3 +1,10 @@
 .DS_Store
 **/.DS_Store
 .claude/
+
+# dev tooling (tests/CI) — the shipped site stays dependency-free
+node_modules/
+package-lock.json
+test-results/
+playwright-report/
+.playwright/
